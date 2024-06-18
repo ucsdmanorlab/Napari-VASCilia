@@ -92,7 +92,7 @@ This section is for the research ear community incase their datasets are little 
 We have also two more buttoms for resetting and also exit VASCilia.
 We are still working on the documentation, so this gihub will be continiuosly updated.
 
-# Your Project Title
+# VASCilia (Vision Analysis StereoCilia) 
 
 This work will be submitted very soon. If you want to read or cite the paper, you can find it [here](https://doi.org/10.1101/2024.06.17.599381).
 

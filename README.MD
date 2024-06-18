@@ -3,15 +3,16 @@ Explore the complexities of the cochlea with VASCilia, a Napari plugin created t
 
 1. Slice Selection: Easily navigate through 3D stacks to find the slices that matter most for your research.
 2. Stack Rotation: Adjust the orientation of your stack to facilitate better analysis.
-3. 3D Instance Segmentation: Identify and assess individual bundles with clear separation.
+3. 3D Instance Segmentation: Identify and assess individual bundles with clear separation using deep learning.
 4. Bundle Deletion: Remove unwanted bundles to streamline your dataset.
-5. Regional Classification: identify whether the region is from BASE, MIDDLE, or APEX in the cochlea.
-6. Hair Cell Differentiation: Distinguish between Inner Hair Cells and Outer Hair Cells with confidence.
+5. Regional Classification: identify whether the region is from BASE, MIDDLE, or APEX in the cochlea using deep learning.
+6. Hair Cell Differentiation: Distinguish between Inner Hair Cells and Outer Hair Cells with confidence using deep learning.
 7. Measurement Analysis: Calculate various measurements such as volume, centroid location, and surface area.
-8. Protein Intensity Analysis: Assess the intensity of proteins like EPS8 with detailed precision.
-9. 3D Distance Calculation: Measure the 3D distance from the peak to the base of each bundle, according to your sample's resolution.
+8. Fluorescence Intensity Analysis: Assess the intensity of signal or protein with detailed precision.
+9. 3D Bundle Height Calculation: Measure the 3D distance from the peak to the base of each bundle, according to your sample's resolution.
+10. Bundle orientation: Determine bundle orientation for all hair cells based on two strategies: Height-only and Height&Distance.
 
-VASCilia is a valuable resource for the ear research community, simplifying the complexity of measurement and analysis. It comes with a suite of pre-trained models to facilitate 3D segmentation and regional classification.
+VASCilia is a valuable resource for the ear research community, simplifying the complexity of measurement and analysis. It comes with a suite of pre-trained models to facilitate 3D segmentation, cell type identification and regional classification.
 
 Furthermore, we are committed to supporting research growth with a comprehensive training section for those looking to explore different staining techniques or develop new segmentation models through annotation and refinement.
 
@@ -24,16 +25,24 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 
 conda create -y -n napari-VASCilia -c conda-forge python=3.10  
 conda activate napari-VASCilia  
-python -m pip install "napari[all]"  
-pip install matplotlib  
-pip install seaborn  
-pip install opencv-python  
-pip install czitools  
-pip install scikit-learn  
-pip install torch torchvision torchaudio  
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+pip install segmentation-models-pytorch
+pip install opencv-python
+pip install matplotlib
+pip install imagecodecs
+pip install tifffile
+python -m pip install "napari[all]"
+pip install scikit-learn
+pip install readlif
+pip install czitools==0.4.1
+go inside C:\Users\yourname\anaconda3\envs\segmodel\Lib\sitepackages\
+segmentation_models_pytorch\init__.py: 
+add this import:
+from . import utils
+ 
 
 Download the trained models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
-and put them inside Napari_VASCilia_v1_0_0, Change config.json according to your path directory and the downloaded models  
+and put the downloaded folder 'Model' inside Napari_VASCilia_v1_0_0, Change config.json according to your path directory and the downloaded models  
 Now you are ready to run: Run Napari_VASCilia_v1_0_0.py  :)  
 
 You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0
@@ -42,7 +51,7 @@ You can find one sample from our datasets to try in this link https://www.dropbo
 VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.
 
 ## How to use VASCilia :  
-There are many buttoms inside the blugin in the right hand side of Napari:
+There are many buttons inside the blugin in the right hand side of Napari:
 
 ![Analysis section](images/Analysis_section.png)
 

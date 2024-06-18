@@ -106,9 +106,9 @@ proofread the ground truth data, created all figures, and established the GitHub
 **Stacks used in this study imaged by:** Dr. David Rosenberg   
 **Contact:** d2rosenberg@UCSD.EDU
 
-**height bundle ground truth analyses**: Samprita Das and Alma Renero were responsible for the.  
+**Height bundle ground truth analyses**: Samprita Das and Alma Renero.  
 
-55 from P5 and P21 stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool:  
+55 (P5 and P21) stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool:  
 **Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang**.
 
 This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.
@@ -118,7 +118,7 @@ Yuzuru Ninoyu assisted with some of the imaging data, with Rick Friedman’s sup
 Artur Indzhykulian provided additional imaging data for testing.  
 
 **Lab Supervisor:** Dr. Uri Manor   
-the Principal Investigator, conceived and supervised the project, and provided critical
+The Principal Investigator, conceived and supervised the project, and provided critical
 revisions and updates to the manuscript.  
 
 **Contact:** u1manor@UCSD.EDU  

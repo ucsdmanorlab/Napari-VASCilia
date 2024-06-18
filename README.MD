@@ -121,7 +121,7 @@ proofread the ground truth data, created all figures, and established the GitHub
 
 This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.
 
-**Other Lab Supports**:   
+**Other Lab Support**:   
 Yuzuru Ninoyu assisted with some of the imaging data, with Rick Friedman’s supervision and support.   
 Artur Indzhykulian provided additional imaging data for testing.  
 

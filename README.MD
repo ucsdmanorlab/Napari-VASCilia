@@ -68,16 +68,15 @@ Multi-object assignment algorithm to produce robust 3D detection
 
 ![multi-object assignment algorithm to produce robust 3D detection](images/3DBundleSeg.png)
 
-3DBundleSeg perfomance reaches F1 measure = 99.4% and Accuracy = 98.8% 
-![](images/Evaluation.png)
 
-7. Delete Label 'button': delete the unwanted detection if it is near the boundary or for any other reason.
-8. Calculate measurments 'button': calculate different measurments from the detected bundles and store them in csv file
-9. Calculate Bundle Height 'button': compute the 3D distance from the highest point in the 3D detection of each bundle to it's base. This calculation will consider the sample resolution.
-10. Perform Cell Clustering 'button': find the IHC, OHC1, OHC2, and OHC3 using either GMM or Kmeans. Those layers will be added to the plugin to be used during the analysis. 
-11. Compute Fluorescence Intensity 'button': produce plots and CSV files that has the accumelated intensity and mean intensity for the protein signal (here it is eps8 protein).
-12. Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model. 
-13. Compute Orientation
+6. Delete Label 'button': delete the unwanted detection if it is near the boundary or for any other reason.
+7. Calculate measurments 'button': calculate different measurments from the detected bundles and store them in csv file
+8. Calculate Bundle Height 'button': compute the 3D distance from the highest point in the 3D detection of each bundle to it's base. This calculation will consider the sample resolution.
+9. Perform Cell Clustering 'button': find the IHC, OHC1, OHC2, and OHC3 using either GMM, Kmeans or Deep Learning. Those layers will be added to the plugin to be used during the analysis. 
+10. Compute Fluorescence Intensity 'button': produce plots and CSV files that has the accumelated intensity and mean intensity for the protein signal (here it is eps8 protein).
+11. Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model. 
+12. Compute Orientation
+13. Training Section
 
 ![Training section](images/Training_section.png)
 
@@ -91,7 +90,7 @@ This section is for the research ear community incase their datasets are little 
 7. Train New Model for 3DBundleSeg 'button': this button will start the training.
 
 We have also two more buttoms for resetting and also exit VASCilia.
-We are still working on adding more features to the plugin, so this gihub will be continiuosly updated with new versions.
+We are still working on the documentation, so this gihub will be continiuosly updated.
 
 
 ### Project Authors and Contacts

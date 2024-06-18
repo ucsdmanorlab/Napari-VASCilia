@@ -116,7 +116,7 @@ proofread the ground truth data, created all figures, and established the GitHub
 
 **Height bundle ground truth analyses**: Samprita Das and Alma Renero.  
 
-55 (P5 and P21) stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool:  
+55 (P5 and P21) 3D stacks were manually annotated by Yasmin Kassim and five undergraduate students using the CVAT annotation tool. This is an extremely challenging process, as each 3D stack might have up to 60 bundles in a 3D setting, which could translate to around 1000 bundles in a 2D setting across all frames. The students involved in this effort are:  
 **Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang**.
 
 This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.

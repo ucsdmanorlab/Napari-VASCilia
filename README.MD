@@ -60,11 +60,13 @@ There are many buttons inside the blugin in the right hand side of Napari:
 4. "Rotate' buttom: this buttom allows to rotate the stack to have proper analysis 
 5. Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:  
 
-Multi-object assignment algorithm to produce robust 3D detection
-![multi-object assignment algorithm to produce robust 3D detection](images/3DBundleSeg.png)
-
 3DBundleSeg can tackles challenged cases
+
 ![](images/challenged_cases_gray.png)
+
+Multi-object assignment algorithm to produce robust 3D detection
+
+![multi-object assignment algorithm to produce robust 3D detection](images/3DBundleSeg.png)
 
 3DBundleSeg perfomance reaches F1 measure = 99.4% and Accuracy = 98.8% 
 ![](images/Evaluation.png)

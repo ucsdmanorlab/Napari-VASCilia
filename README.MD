@@ -81,7 +81,7 @@ Multi-object assignment algorithm to produce robust 3D detection
 Bundle Height with top and bottom adjustable points in red and green, orientation with two points in magenta, and bundle ID in green  
 <img src="images/Bundles.png" width="50%">
 
-Cell type identification   
+Cell type identification (IHC1 in yellow, OHC1 in cyan, OHC2 in green, and OHC3 in magenta)  
 <img src="images/clustering.png" width="50%">
 
 13. Training Section.

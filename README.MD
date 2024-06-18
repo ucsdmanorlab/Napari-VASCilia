@@ -73,10 +73,10 @@ Multi-object assignment algorithm to produce robust 3D detection
 7. Calculate measurments 'button': calculate different measurments from the detected bundles and store them in csv file
 8. Calculate Bundle Height 'button': compute the 3D distance from the highest point in the 3D detection of each bundle to it's base. This calculation will consider the sample resolution.
 9. Perform Cell Clustering 'button': find the IHC, OHC1, OHC2, and OHC3 using either GMM, Kmeans or Deep Learning. Those layers will be added to the plugin to be used during the analysis. 
-10. Compute Fluorescence Intensity 'button': produce plots and CSV files that has the accumelated intensity and mean intensity for the protein signal (here it is eps8 protein).
+10. Compute Fluorescence Intensity 'button': produce plots and CSV files that has the accumelated intensity and mean intensity for the fluorescence signal.
 11. Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model. 
-12. Compute Orientation
-13. Training Section
+12. Compute Orientation: It computes the orientation using two strategies.
+13. Training Section.
 
 ![Training section](images/Training_section.png)
 
@@ -86,7 +86,7 @@ This section is for the research ear community incase their datasets are little 
 3. Display Stored Ground Truth 'button': this buttom will display the stored masks in the plugin.
 4. Copy Segmentation Masks to Ground Truth 'button': this buttom helps in speeding up the annotation process by copying what our trained model is producing sothat the annotator will only correct the wrong part.
 5. Move Ground Truth to Training Folder 'button': this buttom will move all the annotated ground truth to the training folder to start the training process. 
-6. Check Training Data 'buttom': this buttom checks the training data whether they follow the format needed by the architecture. It checks whether there are training and valiation folders and it reads every single file to make sure it doesn't have redundant or no information. It gives warning messages incase it finds an issue.
+6. Check Training Data 'button': this buttom checks the training data whether they follow the format needed by the architecture. It checks whether there are training and valiation folders and it reads every single file to make sure it doesn't have redundant or no information. It gives warning messages incase it finds an issue.
 7. Train New Model for 3DBundleSeg 'button': this button will start the training.
 
 We have also two more buttoms for resetting and also exit VASCilia.

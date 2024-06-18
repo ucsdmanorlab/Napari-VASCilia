@@ -17,7 +17,7 @@ VASCilia is a valuable resource for the ear research community, simplifying the 
 Furthermore, we are committed to supporting research growth with a comprehensive training section for those looking to explore different staining techniques or develop new segmentation models through annotation and refinement.
 
 VASCilia is here to support researchers in their quest for deeper understanding and innovation in the study of cochlear structures.
-**<span style="color:blue;">Click on the image</span>**
+**<span style="color:blue;">*Click on the image :) *</span>**
 
 [![Watch the video](images/VASCilia_pipeline.png)](https://youtu.be/MwMOxJQ_elo)
 

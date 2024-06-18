@@ -41,8 +41,8 @@ add this import:
 from . import utils  
  
 
-Download the trained models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
-and put the downloaded folder 'Model' inside Napari_VASCilia_v1_0_0, Change config.json according to your path directory and the downloaded models  
+Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
+and put the downloaded folder 'models' inside Napari_VASCilia_v1_0_0, Change config.json according to your path directory and the downloaded models  
 Now you are ready to run: Run Napari_VASCilia_v1_0_0.py  :)  
 
 You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0

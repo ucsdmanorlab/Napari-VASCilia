@@ -78,10 +78,10 @@ Multi-object assignment algorithm to produce robust 3D detection
 12. Compute Orientation: It computes the orientation using two strategies.
 
 Bundle Height with top and bottom adjustable points in red and green, orientation with two points in magenta, and bundle ID in green  
-<img src="images/Bundles.png" alt="Bundle Height with top and bottom adjustable points, orientation with two points in magenta, and bundle ID in green" width="50%">
+<img src="images/Bundles.png" width="50%">
 
-Cell type identification 
-<img src="images/clustering.png" alt="IHCs Vs OHCs" width="50%">
+Cell type identification   
+<img src="images/clustering.png" width="50%">
 
 13. Training Section.
 

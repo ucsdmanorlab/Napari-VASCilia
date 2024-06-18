@@ -100,16 +100,27 @@ This work will be submitted very soon. If you want to read or cite the paper, yo
 
 **Python Implementation of this repository:** Dr. Yasmin M. Kassim    
 **Contact:** ykassim@ucsd.edu
+Yasmin Kassim was responsible for the plugin design, fully implemented all functions in Python, wrote the manuscript,
+proofread the ground truth data, created all figures, and established the GitHub repository and codebase.
 
 **Stacks used in this study imaged by:** Dr. David Rosenberg   
 **Contact:** d2rosenberg@UCSD.EDU
+
+**Samprita Das and Alma Renero were responsible for the height bundle ground
+truth analyses**.
 
 55 from P5 and P21 stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool:  
 **Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang**.
 
 This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.
 
-**Lab Supervisor:** Dr. Uri Manor   
+Yuzuru Ninoyu assisted with some of the imaging data, with Rick Friedman’s supervision and support.   
+Artur Indzhykulian provided additional imaging data for testing.  
+
+**Lab Supervisor:** Dr. Uri Manor 
+the Principal Investigator, conceived and supervised the project, and provided critical
+revisions and updates to the manuscript.
+
 **Contact:** u1manor@UCSD.EDU  
 **Department:** Cell and Development Biology Department/ UCSD  
 **Lab Website:** https://manorlab.ucsd.edu/

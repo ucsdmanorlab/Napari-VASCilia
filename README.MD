@@ -99,7 +99,7 @@ This work will be submitted very soon. If you want to read or cite the paper, yo
 ### Project Authors and Contacts
 
 **Python Implementation of this repository:** Dr. Yasmin M. Kassim    
-**Contact:** ykassim@ucsd.edu  
+**Contact:** ykassim@ucsd.edu, ymkgz8@mail.missouri.edu  
 Yasmin Kassim was responsible for the plugin design, fully implemented all functions in Python, wrote the manuscript,
 proofread the ground truth data, created all figures, and established the GitHub repository and codebase.
 

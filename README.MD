@@ -23,22 +23,22 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 
 ## How to install :  
 
-conda create -y -n napari-VASCilia -c conda-forge python=3.10  
-conda activate napari-VASCilia  
-pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
-pip install segmentation-models-pytorch
-pip install opencv-python
-pip install matplotlib
-pip install imagecodecs
-pip install tifffile
-python -m pip install "napari[all]"
-pip install scikit-learn
-pip install readlif
-pip install czitools==0.4.1
+conda create -y -n napari-VASCilia -c conda-forge python=3.10    
+conda activate napari-VASCilia    
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113  
+pip install segmentation-models-pytorch  
+pip install opencv-python  
+pip install matplotlib  
+pip install imagecodecs  
+pip install tifffile  
+python -m pip install "napari[all]"  
+pip install scikit-learn  
+pip install readlif  
+pip install czitools==0.4.1  
 go inside C:\Users\yourname\anaconda3\envs\segmodel\Lib\sitepackages\
 segmentation_models_pytorch\init__.py: 
 add this import:
-from . import utils
+from . import utils  
  
 
 Download the trained models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  

@@ -33,8 +33,8 @@ pip install scikit-learn
 pip install torch torchvision torchaudio  
 
 Download the trained models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
-Change self.wsl_executable, self.model, self.model_region_prediction and self.model_output_path according to your path directory and the downloaded models  
-Now you are ready to run: Run Napari_VASCilia_v1_1_0.py  :)  
+and put them inside Napari_VASCilia_v1_0_0, Change config.json according to your path directory and the downloaded models  
+Now you are ready to run: Run Napari_VASCilia_v1_0_0.py  :)  
 
 You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0
 
@@ -94,7 +94,7 @@ We are still working on adding more features to the plugin, so this gihub will b
 **Stacks used in this study imaged by:** Dr. David Rosenberg   
 **Contact:** d2rosenberg@UCSD.EDU
 
-46 stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool: Samia Rahman, Ibraheem Al Shammaa, Samer Salim, and Kevin Huang.
+46 stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool: Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang.
 
 We are working on annotatating more data for adult mice. This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.
 

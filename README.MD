@@ -76,9 +76,12 @@ Multi-object assignment algorithm to produce robust 3D detection
 10. Compute Fluorescence Intensity 'button': produce plots and CSV files that has the accumelated intensity and mean intensity for the fluorescence signal.
 11. Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model. 
 12. Compute Orientation: It computes the orientation using two strategies.
+
+![Bundle Height with top and bottom adjustable points, orientation with two adjustable points in magenta, and bundle ID in green](images/Bundles.png)
+
 13. Training Section.
 
-![Training section](images/Training_section.png)
+![Training section](images/Training_section2.png)
 
 This section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin
 1. Create/Save Ground Truth 'button': this buttom will create a new layer to draw new ground truth and save them as variables inside the plugin

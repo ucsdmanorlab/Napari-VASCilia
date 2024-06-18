@@ -87,7 +87,7 @@ Cell type identification
 
 ![Training section](images/Training_section2.png)
 
-This section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin
+The training section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin
 1. Create/Save Ground Truth 'button': this buttom will create a new layer to draw new ground truth and save them as variables inside the plugin
 2. Generate Ground Truth Mask 'button': this buttom will save all the generated masks after finish annotating to a new folder. 
 3. Display Stored Ground Truth 'button': this buttom will display the stored masks in the plugin.

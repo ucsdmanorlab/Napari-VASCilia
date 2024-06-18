@@ -53,12 +53,12 @@ VASCilia saves all the intermediate results and the variables inside a pickle fi
 *[Click me](https://youtu.be/Sxm_fsjoWL0)*  
 
 ## How to use VASCilia :  
-There are many buttons inside the blugin in the right hand side of Napari:
+There are several buttons inside the blugin in the right hand side of Napari:
 
-1. 'Open CZI Cochlea Files and Preprocess' buttom: read the CZI file.
-2. 'Upload Processed CZI Stack' buttom: Incase you already have processed the stack, then just uplead your Analysis_state.pkl that usually has all the variables needed to upload your analysis
-3. 'Trim Full Stack' buttom: this buttom allows you to choose only the slices of interest (will be automated in the near future)
-4. "Rotate' buttom: this buttom allows to rotate the stack to have proper analysis 
+1. 'Open CZI Cochlea Files and Preprocess' button: read the CZI file.
+2. 'Upload Processed CZI Stack' button: Incase you already have processed the stack, then just uplead your Analysis_state.pkl that usually has all the variables needed to upload your analysis
+3. 'Trim Full Stack' button: this button allows you to choose only the slices of interest (will be automated in the near future)
+4. "Rotate' buttom: this button allows to rotate the stack to have proper analysis (will be automated in the near future)  
 5. Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:  
 
 3DBundleSeg can tackles challenged cases
@@ -89,15 +89,15 @@ Cell type identification
 ![Training section](images/Training_section2.png)
 
 The training section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin
-1. Create/Save Ground Truth 'button': this buttom will create a new layer to draw new ground truth and save them as variables inside the plugin
-2. Generate Ground Truth Mask 'button': this buttom will save all the generated masks after finish annotating to a new folder. 
-3. Display Stored Ground Truth 'button': this buttom will display the stored masks in the plugin.
-4. Copy Segmentation Masks to Ground Truth 'button': this buttom helps in speeding up the annotation process by copying what our trained model is producing sothat the annotator will only correct the wrong part.
-5. Move Ground Truth to Training Folder 'button': this buttom will move all the annotated ground truth to the training folder to start the training process. 
-6. Check Training Data 'button': this buttom checks the training data whether they follow the format needed by the architecture. It checks whether there are training and valiation folders and it reads every single file to make sure it doesn't have redundant or no information. It gives warning messages incase it finds an issue.
+1. Create/Save Ground Truth 'button': this button will create a new layer to draw new ground truth and save them as variables inside the plugin
+2. Generate Ground Truth Mask 'button': this button will save all the generated masks after finish annotating to a new folder. 
+3. Display Stored Ground Truth 'button': this button will display the stored masks in the plugin.
+4. Copy Segmentation Masks to Ground Truth 'button': this button helps in speeding up the annotation process by copying what our trained model is producing sothat the annotator will only correct the wrong part.
+5. Move Ground Truth to Training Folder 'button': this button will move all the annotated ground truth to the training folder to start the training process. 
+6. Check Training Data 'button': this button checks the training data whether they follow the format needed by the architecture. It checks whether there are training and valiation folders and it reads every single file to make sure it doesn't have redundant or no information. It gives warning messages incase it finds an issue.
 7. Train New Model for 3DBundleSeg 'button': this button will start the training.
 
-We have also two more buttoms for resetting and also exit VASCilia.
+VASCilia also equipped with two more buttons for resetting (to facilitate transitions between analyzing several stacks) and also exit VASCilia.  
 We are still working on the documentation, so this gihub will be continiuosly updated.
 
 # VASCilia (Vision Analysis StereoCilia) 

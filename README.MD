@@ -92,6 +92,9 @@ This section is for the research ear community incase their datasets are little 
 We have also two more buttoms for resetting and also exit VASCilia.
 We are still working on the documentation, so this gihub will be continiuosly updated.
 
+# Your Project Title
+
+This work will be submitted very soon. If you want to read or cite the paper, you can find it [here](https://doi.org/10.1101/2024.06.17.599381).
 
 ### Project Authors and Contacts
 
@@ -101,10 +104,10 @@ We are still working on the documentation, so this gihub will be continiuosly up
 **Stacks used in this study imaged by:** Dr. David Rosenberg   
 **Contact:** d2rosenberg@UCSD.EDU
 
-46 stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool:  
-Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang.
+55 from P5 and P21 stacks are manually annotated by Yasmin Kassim and four undergraduate students using CVAT annotation tool:  
+**Samia Rahman, Ibraheem Al Shammaa, Samer Salim, Zhuoling Huang, and Kevin Huang**.
 
-We are working on annotatating more data for adult mice. This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.
+This dataset will be the first annotated dataset in the literature to 3D segment the stereocilia bundles and it will be published and available for the ear research community with the publication of this paper.
 
 **Lab Supervisor:** Dr. Uri Manor   
 **Contact:** u1manor@UCSD.EDU  

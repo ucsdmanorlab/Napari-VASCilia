@@ -67,13 +67,13 @@ There are several buttons inside the blugin in the right hand side of Napari:
 <p align="center">
   <strong>3DBundleSeg can tackle challenged cases</strong>  
   <br>
-  <img src="images/challenged_cases_gray.png" width="50%">
+  <img src="images/challenged_cases_gray.png" width="100%">
 </p>
 
 <p align="center">
   <strong>Multi-object assignment algorithm to produce robust 3D detection</strong>  
   <br>
-  <img src="images/3DBundleSeg.png" width="50%">
+  <img src="images/3DBundleSeg.png" width="100%">
 </p>
 
 

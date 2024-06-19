@@ -56,7 +56,7 @@ VASCilia saves all the intermediate results and the variables inside a pickle fi
 *[Click me](https://youtu.be/Sxm_fsjoWL0)*  
 
 ## How to use VASCilia :  
-*[Click me](https://https://www.youtube.com/watch?v=cyc0c9vKGL0)*  
+*[Click me](https://youtu.be/cyc0c9vKGL0?si=Gye4TTstiSXEul5-)*  
 
 There are several buttons inside the blugin in the right hand side of Napari:
 

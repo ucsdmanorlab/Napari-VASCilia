@@ -95,7 +95,11 @@ Multi-object assignment algorithm to produce robust 3D detection
 
 13. Training Section.
 
-![Training section](images/Training_section2.png)
+<p align="center">
+  <strong>Training section</strong>  
+  <br>
+  <img src="images/Training_section2.png" width="50%">
+</p>
 
 The training section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin
 1. Create/Save Ground Truth 'button': this button will create a new layer to draw new ground truth and save them as variables inside the plugin

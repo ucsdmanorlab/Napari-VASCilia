@@ -81,11 +81,17 @@ Multi-object assignment algorithm to produce robust 3D detection
 11. Predict Region 'button': Predict whether the region is from the BASE, MIDDLE, or APEX region using a RESNET50 trained model. 
 12. Compute Orientation: It computes the orientation using two strategies.
 
-Bundle Height with top and bottom adjustable points in red and green, orientation with two points in magenta, and bundle ID in green  
-<img src="images/Bundles.png" width="50%">
+<p align="center">
+  <strong>Bundle Height with top and bottom adjustable points in red and green, orientation with two points in magenta, and bundle ID in green</strong>  
+  <br>
+  <img src="images/Bundles.png" width="50%">
+</p>
 
-Cell type identification (IHC1 in yellow, OHC1 in cyan, OHC2 in green, and OHC3 in magenta)  
-<img src="images/clustering.png" width="50%">
+<p align="center">
+  <strong>Cell type identification (IHC1 in yellow, OHC1 in cyan, OHC2 in green, and OHC3 in magenta)</strong>  
+  <br>
+  <img src="images/clustering.png" width="50%">
+</p>
 
 13. Training Section.
 

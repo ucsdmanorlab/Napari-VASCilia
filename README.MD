@@ -64,13 +64,17 @@ There are several buttons inside the blugin in the right hand side of Napari:
 4. "Rotate' buttom: this button allows to rotate the stack to have proper analysis (will be automated in the near future)  
 5. Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:  
 
-3DBundleSeg can tackles challenged cases
+<p align="center">
+  <strong>3DBundleSeg can tackle challenged cases</strong>  
+  <br>
+  <img src="images/challenged_cases_gray.png" width="50%">
+</p>
 
-![](images/challenged_cases_gray.png)
-
-Multi-object assignment algorithm to produce robust 3D detection
-
-![multi-object assignment algorithm to produce robust 3D detection](images/3DBundleSeg.png)
+<p align="center">
+  <strong>Multi-object assignment algorithm to produce robust 3D detection</strong>  
+  <br>
+  <img src="images/3DBundleSeg.png" width="50%">
+</p>
 
 
 6. Delete Label 'button': delete the unwanted detection if it is near the boundary or for any other reason.

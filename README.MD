@@ -98,7 +98,7 @@ Multi-object assignment algorithm to produce robust 3D detection
 <p align="center">
   <strong>Training section</strong>  
   <br>
-  <img src="images/Training_section2.png" width="50%">
+  <img src="images/Training_section2.png" width="25%">
 </p>
 
 The training section is for the research ear community incase their datasets are little different than ours then they can easily create their cround truth, train a new model and use it in the plugin

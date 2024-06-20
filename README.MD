@@ -21,7 +21,7 @@ VASCilia is a valuable resource for the ear research community, simplifying the 
 Furthermore, we are committed to supporting research growth with a comprehensive training section for those looking to explore different staining techniques or develop new segmentation models through annotation and refinement.
 
 VASCilia is here to support researchers in their quest for deeper understanding and innovation in the study of cochlear structures.  
-*[click the image](https://youtu.be/MwMOxJQ_elo)*  
+*[click the image to see a highlights reel of the plugin](https://youtu.be/MwMOxJQ_elo)*  
 
 [![Watch the video](images/VASCilia_pipeline.png)](https://youtu.be/MwMOxJQ_elo)
 
@@ -53,10 +53,10 @@ You can find one sample from our datasets to try in this link https://www.dropbo
 
 ## Unique about VASCilia :  
 VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.  
-*[Click me](https://youtu.be/Sxm_fsjoWL0)*  
+*[Click me to learn how to upload a z-stack](https://youtu.be/Sxm_fsjoWL0)*  
 
 ## How to use VASCilia :  
-*[Click me](https://youtu.be/cyc0c9vKGL0)*  
+*[Click me to see a video demo of the entire workflow](https://youtu.be/cyc0c9vKGL0)*  
 
 There are several buttons inside the blugin in the right hand side of Napari:
 

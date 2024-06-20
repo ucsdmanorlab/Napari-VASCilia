@@ -39,9 +39,9 @@ python -m pip install "napari[all]"
 pip install scikit-learn  
 pip install readlif  
 pip install czitools==0.4.1  
-go inside C:\Users\yourname\anaconda3\envs\segmodel\Lib\sitepackages\
+go inside C:\Users\UserName\anaconda3\envs\napari-VASCilia\Lib\site-packages\segmentation_models_pytorch\
 segmentation_models_pytorch\init__.py: 
-add this import:
+add this import to the file, save it, and close it:
 from . import utils  
  
 

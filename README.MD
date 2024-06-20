@@ -131,7 +131,6 @@ Yasmin Kassim was responsible for the plugin design, fully implemented all funct
 proofread the ground truth data, created all figures, and established the GitHub repository and codebase.
 
 **Stacks used in this study imaged by:** Dr. David Rosenberg   
-**Contact:** d2rosenberg@UCSD.EDU
 
 **Height bundle ground truth analyses**: Samprita Das and Alma Renero.  
 

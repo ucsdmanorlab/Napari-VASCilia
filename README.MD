@@ -41,7 +41,7 @@ pip install readlif
 pip install czitools==0.4.1  
 go inside C:\Users\UserName\anaconda3\envs\napari-VASCilia\Lib\site-packages\segmentation_models_pytorch\
 segmentation_models_pytorch\init__.py: 
-add this import to the file, save it, and close it:
+add this import to the file:  
 from . import utils  
  
 

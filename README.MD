@@ -26,7 +26,7 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 [![Watch the video](images/VASCilia_pipeline.png)](https://youtu.be/MwMOxJQ_elo)
 
 ## How to install :  
-### STEP1
+STEP1[Create the Anaconda enviroment]:  
 conda create -y -n napari-VASCilia -c conda-forge python=3.10    
 conda activate napari-VASCilia    
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113  
@@ -44,13 +44,26 @@ go inside C:\Users\UserName\anaconda3\envs\napari-VASCilia\Lib\site-packages\seg
 segmentation_models_pytorch\init__.py: 
 add this import to the file:  
 from . import utils  
- 
 
-Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
-and put the downloaded folder 'models' inside Napari_VASCilia_v1_0_0, Change config.json according to your path directory and the downloaded models  
-Now you are ready to run: Run Napari_VASCilia_v1_0_0.py  :)  
+STEP2[Install WSL]:  
+1. Open the Command Prompt and install the Ubuntu 20.04 Distribution by simply copy paste this command  
+wsl --install -d Ubuntu-20.04
+2. After the setup successfully completes, reboot your computer. Open Ubuntu by typing "Ubuntu" in the search bar. A pop-up window for Ubuntu will appear. To check if CUDA and the GPU are correctly installed and available, type nvidia-smi in the terminal  
 
-You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0
+STEP3[Download the code and the deep learning trained models]:
+1. Download the code from this github  
+2. Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
+and put the downloaded folder, called 'models', inside Napari_VASCilia_v1_0_0 folder.
+3. You can now create two more folders, one for raw_data, and one for processed_data inside Napari_VASCilia_v1_0_0 folder.
+
+STEP4[download one dataset to test VASCilia]:  
+You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0  
+put it inside the raw_data folder
+
+STEP5[Update the path in the config.json]:  
+Change config.json according to your path directory and the downloaded models  
+
+Congratulations :), now you are ready to run: Run Napari_VASCilia_v1_0_0.py  
 
 ## Unique about VASCilia :  
 VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.  

@@ -16,7 +16,7 @@ Explore the complexities of the cochlea with VASCilia, a Napari plugin created t
 9. 3D Bundle Height Calculation: Measure the 3D distance from the peak to the base of each bundle, according to your sample's resolution.
 10. Bundle orientation: Determine bundle orientation for all hair cells based on two strategies: Height-only and Height&Distance.
 
-VASCilia is a valuable resource for the ear research community, simplifying the complexity of measurement and analysis. It comes with a suite of pre-trained models to facilitate 3D segmentation, cell type identification and regional classification.
+VASCilia &#9829; is a valuable resource for the ear research community, simplifying the complexity of measurement and analysis. It comes with a suite of pre-trained models to facilitate 3D segmentation, cell type identification and regional classification.
 
 Furthermore, we are committed to supporting research growth with a comprehensive training section for those looking to explore different staining techniques or develop new segmentation models through annotation and refinement.
 

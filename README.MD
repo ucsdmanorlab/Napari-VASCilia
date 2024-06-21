@@ -25,6 +25,8 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 
 [![Watch the video](images/VASCilia_pipeline.png)](https://youtu.be/MwMOxJQ_elo)
 
+*[Click me to see a video demo of the entire workflow](https://youtu.be/mNPJ1g0vEW8)*  
+
 ## How to install :  
 STEP1[Create the Anaconda enviroment]:  
 ```sh
@@ -88,7 +90,7 @@ VASCilia saves all the intermediate results and the variables inside a pickle fi
 *[Click me to learn how to upload a z-stack](https://youtu.be/Sxm_fsjoWL0)*  
 
 ## How to use VASCilia :  
-*[Click me to see a video demo of the entire workflow](https://youtu.be/cyc0c9vKGL0)*  
+*[Click me to see a video demo of the entire workflow](https://youtu.be/mNPJ1g0vEW8)*  
 
 There are several buttons inside the blugin in the right hand side of Napari:
 

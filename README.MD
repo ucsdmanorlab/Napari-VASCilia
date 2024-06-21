@@ -64,7 +64,7 @@ STEP4[download one dataset to test VASCilia]:
 You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0  
 put it inside the raw_data folder
 
-STEP5[Update the path in the config.json]:  
+STEP5[Update the paths in the config.json]:  
 Change config.json according to your path directory and the downloaded models  
 
 Now your folders look like this:

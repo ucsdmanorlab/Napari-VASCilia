@@ -27,6 +27,7 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 
 ## How to install :  
 STEP1[Create the Anaconda enviroment]:  
+```sh
 conda create -y -n napari-VASCilia -c conda-forge python=3.10    
 conda activate napari-VASCilia    
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113  
@@ -44,7 +45,7 @@ go inside C:\Users\UserName\anaconda3\envs\napari-VASCilia\Lib\site-packages\seg
 segmentation_models_pytorch\init__.py: 
 add this import to the file:  
 from . import utils  
-
+```
 STEP2[Install WSL]:  
 1. Open the Command Prompt and install the Ubuntu 20.04 Distribution by simply copy paste this command  
 wsl --install -d Ubuntu-20.04

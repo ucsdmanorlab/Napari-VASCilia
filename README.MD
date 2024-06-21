@@ -152,9 +152,11 @@ We are still working on the documentation, so this gihub will be continiuosly up
 
 # VASCilia (Vision Analysis StereoCilia) 
 
-This work will be submitted very soon. If you want to read or cite the paper, you can find it [here](https://doi.org/10.1101/2024.06.17.599381).
+This work will be submitted very soon. If you want to read or cite the paper, you can find it [here](https://doi.org/10.1101/2024.06.17.599381).  
 
-### Project Authors and Contacts
+Kassim, Y. M., Rosenberg, D. B., Renero, A., Das, S., Rahman, S., Al Shammaa, I., Salim, S., Huang, Z., Huang, K., Ninoyu, Y., Friedman, R. A., Indzhykulian, A. A., & Manor, U. (2024). VASCilia (Vision Analysis StereoCilia): A Napari Plugin for Deep Learning-Based 3D Analysis of Cochlear Hair Cell Stereocilia Bundles. bioRxiv. https://doi.org/10.1101/2024.06.17.599381
+
+# Project Authors and Contacts
 
 **Python Implementation of this repository:** Dr. Yasmin M. Kassim    
 **Contact:** ykassim@ucsd.edu, ymkgz8@mail.missouri.edu  

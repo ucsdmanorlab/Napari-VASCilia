@@ -26,7 +26,7 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 [![Watch the video](images/VASCilia_pipeline.png)](https://youtu.be/MwMOxJQ_elo)
 
 ## How to install :  
-
+### STEP1
 conda create -y -n napari-VASCilia -c conda-forge python=3.10    
 conda activate napari-VASCilia    
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113  

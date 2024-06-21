@@ -63,6 +63,23 @@ put it inside the raw_data folder
 STEP5[Update the path in the config.json]:  
 Change config.json according to your path directory and the downloaded models  
 
+Now your folders look like this:
+- 📁 **Napari_VASCilia_v1_0_0** `[Folder_path]`
+  - 📁 **models** `[Trained models]`
+    - 📁 **cell_type_identification_model** `[has weights for cell type identification IHC vs OHC]`
+    - 📁 **new_seg_model** `[incase you fine tune the existing model, the new model will be stored here]`
+    - 📁 **region_prediction** `[has weights for region prediction]`
+    - 📁 **seg_model**  `[has the weights for the 3D instance segmentation model]`
+    - 📁 **Train_predict_stereocilia_exe** `[executible needed by the plugin to segment and retrain the model using WSL]`
+  - 📁 **processed_data** `[processed data will be stored here]`
+  - 📁 **raw_data** `[raw data (stacks) is placed here]`
+  - 📁 **src** `[python files are stored here]`
+    - 📁 **assets** `[has the logo]`
+    - 📁 **core** `[has all the classes code scripts for all VASCilia features]`
+    - 📄 **config.json** `[needs to be updated accoring to your paths, please keep /mnt/c/ and update whatever after that]`
+    - 📄 **Napari_VASCilia_v1_0_0.py** `[Run this file]`
+    - 📄 **ui_setup** `[Plugin setup exists here]`
+
 Congratulations :), now you are ready to run: Run Napari_VASCilia_v1_0_0.py  
 
 ## Unique about VASCilia :  

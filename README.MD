@@ -102,7 +102,7 @@ Please update the /.../ portion according to your paths:
 }
 ```
 
-Congratulations :) &#127881;, now you are ready to run: Run Napari_VASCilia_v1_0_0.py  
+Congratulations :) &#127881;, now you can enjoy working with the plugin. 
 
 ## Unique about VASCilia :  
 VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.  

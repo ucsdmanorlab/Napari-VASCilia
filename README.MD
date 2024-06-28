@@ -27,62 +27,80 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 
 *[Click me to see a video demo of the entire workflow](https://youtu.be/mNPJ1g0vEW8)*  
 
-## How to install :  
-STEP1[Create the Anaconda enviroment]:  
-```sh
-conda create -y -n napari-VASCilia -c conda-forge python=3.10    
-conda activate napari-VASCilia    
-pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113  
-pip install segmentation-models-pytorch  
-pip install opencv-python  
-pip install matplotlib  
-pip install imagecodecs  
-pip install tifffile  
-python -m pip install "napari[all]"  
-pip install scikit-learn  
-pip install readlif  
-pip install czitools==0.4.1  
-pip install czifile 
-```
-go inside C:\Users\UserName\anaconda3\envs\napari-VASCilia\Lib\site-packages\segmentation_models_pytorch\
-segmentation_models_pytorch\init__.py: 
-add this import to the file:  
-from . import utils  
-
-STEP2[Install WSL]:  
+## How to install : 
+STEP1[Install WSL]:  
 1. Open the Command Prompt and install the Ubuntu 20.04 Distribution by simply copy paste this command  
 wsl --install -d Ubuntu-20.04
 2. After the setup successfully completes, reboot your computer. Open Ubuntu by typing "Ubuntu" in the search bar. A pop-up window for Ubuntu will appear. To check if CUDA and the GPU are correctly installed and available, type nvidia-smi in the terminal  
 
-STEP3[Download the code and the deep learning trained models]:
-1. Download the code from this github  
-2. Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
-and put the downloaded folder, called 'models', inside Napari_VASCilia_v1_0_0 folder.
-3. You can now create two more folders, one for raw_data, and one for processed_data inside Napari_VASCilia_v1_0_0 folder.
+STEP2[Download the deep learning trained models]:
+1. Download the VASCilia_trained_models from https://www.dropbox.com/scl/fo/xh40g5htgw6lnzxfaqf8f/h?rlkey=9di5nl7f1uq2v623cfc9gki7j&dl=0  
+now you should have a folder called 'models'
 
-STEP4[download one dataset to test VASCilia]:  
-You can find one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0  
-put it inside the raw_data folder
-
-STEP5[Update the paths in the config.json]:  
-Change config.json according to your path directory and the downloaded models  
-
-Now your folders look like this:
-- 📁 **Napari_VASCilia_v1_0_0** `[Folder_path]`
-  - 📁 **models** `[Trained models]`
+- 📁 **models** `[Trained models]`
     - 📁 **cell_type_identification_model** `[has weights for cell type identification IHC vs OHC]`
     - 📁 **new_seg_model** `[incase you fine tune the existing model, the new model will be stored here]`
     - 📁 **region_prediction** `[has weights for region prediction]`
     - 📁 **seg_model**  `[has the weights for the 3D instance segmentation model]`
-    - 📁 **Train_predict_stereocilia_exe** `[executible needed by the plugin to segment and retrain the model using WSL]`
-  - 📁 **processed_data** `[processed data will be stored here]`
+    - 📁 **Train_predict_stereocilia_exe** `[executible needed by the plugin to segment and retrain the model using WSL]`  
+ 
+STEP3[download one dataset to test VASCilia]:  
+download one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0  
+create a folder, called raw_data folder and put the downloaded dataset inside the raw_data folder
+
   - 📁 **raw_data** `[raw data (stacks) is placed here]`
-  - 📁 **src** `[python files are stored here]`
-    - 📁 **assets** `[has the logo]`
-    - 📁 **core** `[has all the classes code scripts for all VASCilia features]`
-    - 📄 **config.json** `[needs to be updated accoring to your paths, please keep /mnt/c/ and update whatever after that]`
-    - 📄 **Napari_VASCilia_v1_0_0.py** `[Run this file]`
-    - 📄 **ui_setup** `[Plugin setup exists here]`
+    - 📄 Litter 12 Mouse 1 MIDDLE - delBUNdelCAP_Airyscan Processing.czi
+   
+Also create another folder called processed_data in which the plugin will use to store the results of the analysis
+  
+  - 📁 **processed_data** `[processed data will be stored here]`
+
+## Instructions for Cloning the Repository [You can do either Option A or Option B]:
+## Option A: Cloning the Repository:  
+```sh
+git clone https://github.com/ucsdmanorlab/Napari-VASCilia.git
+cd Napari-VASCilia
+conda create -y -n napari-VASCilia -c conda-forge python=3.10    
+conda activate napari-VASCilia    
+pip install -r requirements.txt
+pip install -e .
+napari  
+```
+## Option B: Installing via PyPI:
+```sh
+conda create -y -n napari-VASCilia -c conda-forge python=3.10    
+conda activate napari-VASCilia    
+pip install -r requirements.txt
+pip install napari-vascilia
+napari  
+```
+Post-installation:  
+1. Activate the plugin through Plugins -> VASCilia UI (Napari-VASCilia).
+2. This will generate the config.json file at C:/Users/Username/.napari-vascilia/config.json. Update the paths in config.json as needed.
+config.json will be generated upon running the plugin for the first time.
+
+- 📁 C:/Users/Username/   [your home folder]
+  - 📁 **.napari-vascilia** `[Folder_path]`
+    - 📄 **config.json**
+
+Please update the /.../ portion according to your paths:
+
+```sh
+{
+"rootfolder": "C:/Users/.../processed_data/",
+"wsl_executable": "C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2",
+"model": "C:/Users/.../models/seg_model/stereocilia_v7/",
+"model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
+"model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
+"model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
+"flag_to_resize": false,
+"flag_to_pad": false,
+"resize_dimension": 1200,
+"pad_dimension": 1500,
+"button_width": 60,
+"button_height": 22
+}
+```
 
 Congratulations :) &#127881;, now you are ready to run: Run Napari_VASCilia_v1_0_0.py  
 

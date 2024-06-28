@@ -69,9 +69,10 @@ napari
 ## Option B: Installing via PyPI:
 ```sh
 conda create -y -n napari-VASCilia -c conda-forge python=3.10    
-conda activate napari-VASCilia    
+conda activate napari-VASCilia 
+# Download the requirements.txt file from this repository and ensure you have it in your working directory. 
 pip install -r requirements.txt
-pip install napari-vascilia
+pip install Napari-VASCilia
 napari  
 ```
 Post-installation:  

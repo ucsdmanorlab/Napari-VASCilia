@@ -1,8 +1,12 @@
 name: Napari-VASCilia
-display_name: Napari VASCilia
-# use 'hidden' to remove plugin from napari hub search results
+display_name: VASCilia
 visibility: public
-# see https://napari.org/stable/plugins/manifest.html for valid categories
-categories: ["Annotation", "Segmentation", "Acquisition"]
+categories: ["Segmentation", "Annotation", "Measurement", "Image Processing", "Visualization"]
 contributions:
   commands:
+    - id: Napari-VASCilia.initialize_ui
+      python_name: napari_vascilia.Napari_VASCilia_v1_0_0:initialize_vascilia_ui
+      title: Initialize UI
+  widgets:
+    - command: Napari-VASCilia.initialize_ui
+      display_name: VASCilia UI

@@ -9,6 +9,8 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+.env/
+.venv/
 build/
 develop-eggs/
 dist/
@@ -68,8 +70,13 @@ target/
 
 # Pycharm and VSCode
 .idea/
-venv/
 .vscode/
+
+# Virtual Environments
+venv/
+env/
+.env/
+.venv/
 
 # IPython Notebook
 .ipynb_checkpoints
@@ -82,3 +89,14 @@ venv/
 
 # written by setuptools_scm
 **/_version.py
+
+# Napari models and processed data
+models/
+processed_data/
+!models/.gitkeep
+!processed_data/.gitkeep
+
+# Additional logs and temporary files
+logs/
+tmp/
+*.log

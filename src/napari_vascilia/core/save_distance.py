@@ -99,7 +99,7 @@ class SaveDistanceAction:
             df = pd.read_csv(os.path.join(Distance_path, 'Physical_distances.csv'))
             class_col = df.iloc[:, 2]
             df = pd.DataFrame(self.plugin.physical_distances, columns=['ID', 'Distance'])
-            df['Class'] = class_col
+            df['CLass'] = class_col
         df.to_csv(os.path.join(Distance_path, 'Physical_distances.csv'), index=False, sep=',')
         self.plugin.start_points_most_updated = self.plugin.start_points_layer.data
         self.plugin.end_points_most_updated = self.plugin.end_points_layer.data

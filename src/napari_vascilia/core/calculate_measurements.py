@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from skimage.measure import regionprops
-
+import numpy as np
 class CalculateMeasurementsAction:
     """
     This class handles the action of calculating measurements for labeled volumes.
@@ -46,3 +46,4 @@ class CalculateMeasurementsAction:
         # Convert the list of dictionaries to a DataFrame and export to CSV
         df = pd.DataFrame(measurements_list)
         df.to_csv(os.path.join(measurements_dir, "measurements.csv"), index=False)
+        np.save(os.path.join(measurements_dir,'StereociliaBundle_labeled_volume.npy'), self.plugin.labeled_volume)

@@ -447,6 +447,7 @@ class OpenCochleaAction:
             # Check if any dimension is less than 1500
             if self.plugin.flag_to_resize or self.plugin.flag_to_pad:
                 image_clahe = self.resize_or_pad_image(image_clahe, height, width)
+            #image_clahe = cv2.resize(image_clahe, (256,256))  #please reomve this Yasmin
             imwrite(file_name_towrite, image_clahe)
         self.plugin.full_stack_length = i + 1
         self.plugin.display = None

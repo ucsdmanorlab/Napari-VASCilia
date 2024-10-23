@@ -18,6 +18,7 @@ from .core.predict_tonotopic_region import PredictRegionAction
 from .core.compute_orientation_action import ComputeOrientationAction
 from .core.commute_training_action import commutetraining
 from .core.reset_exit_action import reset_exit
+import importlib.resources
 
 
 def create_ui(plugin):
@@ -26,9 +27,12 @@ def create_ui(plugin):
     layout = QVBoxLayout(container)
 
     layout.setContentsMargins(0, 0, 0, 0)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    logo_path = os.path.join(script_dir, 'assets', 'VASCilia_logo1.png')
-    logo_pixmap = QPixmap(logo_path)
+    #script_dir = os.path.dirname(os.path.abspath(__file__))
+    #logo_path = os.path.join(script_dir, 'assets', 'VASCilia_logo1.png')
+    # Use pkg_resources to locate the logo file in the installed package
+    # Use importlib.resources to access the logo file in the installed package
+    with importlib.resources.path('napari_vascilia.assets', 'VASCilia_logo1.png') as logo_path:
+        logo_pixmap = QPixmap(str(logo_path))
     logo_size = QSize(125, 75)
     scaled_logo_pixmap = logo_pixmap.scaled(logo_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 

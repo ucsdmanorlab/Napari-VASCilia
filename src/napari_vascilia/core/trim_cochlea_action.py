@@ -8,6 +8,7 @@ from qtpy.QtWidgets import QPushButton, QVBoxLayout, QDialog
 from qtpy.QtWidgets import  QLabel, QLineEdit, QHBoxLayout
 from qtpy.QtWidgets import QPushButton, QVBoxLayout, QWidget
 from .VASCilia_utils import display_images, save_attributes  # Import the utility functions
+from .trim_AI import Trim_AI_prediction  # Import the class from trim_AI.py
 
 class TrimCochleaAction:
     """
@@ -31,6 +32,7 @@ class TrimCochleaAction:
         Executes the action to trim Cochlea stacks.
         It prompts the user for the range of stacks to trim and processes the files accordingly.
         """
+
         if self.plugin.analysis_stage >= 2:
             msg_box = QMessageBox()
             msg_box.setWindowTitle('Analysis Details')
@@ -39,20 +41,26 @@ class TrimCochleaAction:
             msg_box.exec_()
             return
 
-        dialog = QDialog()
-        dialog.setWindowTitle("Trim Cochlea Files")
+        ### AI sugggestion for start and end index
+        trim_ai = Trim_AI_prediction(self.plugin)
+        start_index, end_index = trim_ai.execute()
 
+        dialog = QDialog()
+        title = "Trim cochlea stacks with AI companion assistance \U0001F916 \U0001F9E0"
+        dialog.setWindowTitle("Trim cochlea stacks with AI companion assistance \U0001F916 \U0001F9E0")
         layout = QVBoxLayout()
 
         # Start number input
         start_label = QLabel("Start No:")
         start_input = QLineEdit()
+        start_input.setText(str(start_index))  # Set default start number here
         layout.addWidget(start_label)
         layout.addWidget(start_input)
 
         # End number input
         end_label = QLabel("End No:")
         end_input = QLineEdit()
+        end_input.setText(str(end_index))  # Set default end number here
         layout.addWidget(end_label)
         layout.addWidget(end_input)
 
@@ -67,6 +75,14 @@ class TrimCochleaAction:
 
         layout.addWidget(buttons)
         dialog.setLayout(layout)
+        char_count = len(title)
+        # Estimate width per character (you can tweak this value based on the font size, etc.)
+        width_per_char = 10  # Approximate width per character in pixels (adjust as needed)
+        # Calculate the total width based on the character count
+        calculated_width = char_count * width_per_char
+        # Set a minimum height and the calculated width for the dialog
+        dialog.resize(calculated_width, 200)  # Yo
+
 
         def copy_files_in_range():
             total_digits = 4  # Assuming 4 digits for file numbering
@@ -95,6 +111,24 @@ class TrimCochleaAction:
             try:
                 self.plugin.start_trim = int(start_no)
                 self.plugin.end_trim = int(end_no)
+
+                if self.plugin.start_trim == self.plugin.end_trim:
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle('Analysis Details')
+                    msg_box.setText(
+                        'Sorry, You should at least have two trimmed frames, repeat the process')
+                    msg_box.exec_()
+                    return
+
+                if self.plugin.start_trim == 'None' or self.plugin.end_trim == 'None':
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle('Analysis Details')
+                    msg_box.setText(
+                        'Please enter a valid number')
+                    msg_box.exec_()
+                    return
+
+
                 if self.plugin.start_trim < self.plugin.end_trim <= self.plugin.full_stack_length:
                     self.plugin.full_stack_raw_images_trimmed = os.path.dirname(self.plugin.full_stack_raw_images)
                     self.plugin.full_stack_raw_images_trimmed = os.path.join(self.plugin.full_stack_raw_images_trimmed, 'full_stack_raw_images_trimmed')

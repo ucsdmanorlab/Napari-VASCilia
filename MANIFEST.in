@@ -1,5 +1,6 @@
 include LICENSE
 include README.md
+include src/napari_vascilia/assets/VASCilia_logo1.png
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]

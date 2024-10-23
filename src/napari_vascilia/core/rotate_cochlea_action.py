@@ -14,7 +14,7 @@ from qtpy.QtGui import QImage, QPixmap
 from qtpy.QtCore import Qt, QSize
 from qtpy.QtWidgets import QPushButton, QVBoxLayout
 from .VASCilia_utils import display_images, save_attributes  # Import the utility functions
-
+from . rotate_AI import Rotate_AI_prediction
 
 class RotateCochleaAction:
     """
@@ -52,7 +52,11 @@ class RotateCochleaAction:
         middle_index = len(image_files) // 2
         middle_image_name = image_files[middle_index] if image_files else None
         middle_image = imread(os.path.join(self.plugin.full_stack_raw_images_trimmed, middle_image_name))
-
+        # This code is related to the rotate_AI proediction------------
+        rotate_ai = Rotate_AI_prediction(self.plugin)
+        angle_to_rotate_ai = rotate_ai.execute()
+        middle_image = rotate(middle_image, angle_to_rotate_ai, reshape=True)
+        ##-------------------------------------------------------------
         self.popup = QDialog()  # Changed from local variable to class attribute
         layout = QVBoxLayout(self.popup)
 
@@ -80,6 +84,8 @@ class RotateCochleaAction:
         slider.setOrientation(Qt.Horizontal)
         slider.setMinimum(-180)
         slider.setMaximum(180)
+        emoji_label = QLabel("🤖 🧠 🤖 AI Companion Rotation 🤖 🧠 🤖")  # Emojis as text
+        layout.addWidget(emoji_label, alignment=Qt.AlignHCenter)
         layout.addWidget(slider)
 
         def update_image(value):
@@ -103,7 +109,10 @@ class RotateCochleaAction:
             else:
                 shutil.rmtree(self.plugin.full_stack_rotated_images)
                 os.makedirs(self.plugin.full_stack_rotated_images)
-            angle = slider.value()
+            angle = slider.value() + angle_to_rotate_ai
+            # This line is also related to AI rotation model
+            # if angle == 0:
+            #     angle = angle_to_rotate_ai
             rawim_files = sorted(
                 [os.path.join(self.plugin.full_stack_raw_images_trimmed, f) for f in os.listdir(self.plugin.full_stack_raw_images_trimmed) if
                  f.endswith('.tif')])

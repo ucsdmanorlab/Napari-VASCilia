@@ -41,7 +41,12 @@ class ComputeOrientationAction:
         self.plugin.text_annotations = []  # For storing angle text
         for i in range(0, len(self.plugin.orientation), 2):
             right_point = self.plugin.orientation[i]
+            right_point[2] = 0
+            self.plugin.orientation[i] = right_point  # Update the original list
             left_point = self.plugin.orientation[i + 1]
+            left_point[2] = 0
+            self.plugin.orientation[i + 1] = left_point  # Update the original list
+
             # Compute the line and angle
             line = [right_point[:2][::-1], left_point[:2][::-1]]  # Using 2D points for the line
             lines.append(line)
@@ -212,7 +217,7 @@ class ComputeOrientationAction:
 
         for layer in self.plugin.viewer.layers:
             if layer.name in ['Angle Annotations', 'Orientation Points', 'Orientation Lines', 'Original Volume',
-                              'Labeled Image']:
+                              'Labeled Image', 'ID Annotations']:
                 layer.visible = True
             else:
                 layer.visible = False

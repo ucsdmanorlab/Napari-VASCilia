@@ -137,11 +137,11 @@ class ComputeSignalAction:
         image_3d = np.zeros(self.plugin.labeled_volume.shape, dtype=np.uint8)
         for idx, image in enumerate(image_files):
             im = imread(os.path.join(self.plugin.full_stack_rotated_images, image))
-            redch = im[:, :, 0]
+            redch = im[:, :, 0]   #redch = im[:, :, 0] for red channles (eps8) and redch = im[:, :, 1] for pheloiden
             image_3d[:, :, idx] = redch
 
         darker_magenta = (0.8, 0, 0.8)
-        [min_intensity, max_intensity, max_mean_intensity] = plot_responces(self.plugin.labeled_volume, image_3d, 'Allcells', darker_magenta, 0, 0, 0)
+        [min_intensity, max_intensity, max_mean_intensity] = plot_responces(self.plugin.labeled_volume, image_3d, 'Allcells', 'magenta', 0, 0, 0) #darker_magenta
         if self.plugin.clustering == 1:
             [_, _, _] = plot_responces(self.plugin.IHC, image_3d, 'IHCs', 'yellow', min_intensity, max_intensity, max_mean_intensity)
             [_, _, _] = plot_responces(self.plugin.OHC, image_3d, 'OHCs', 'red', min_intensity, max_intensity, max_mean_intensity)

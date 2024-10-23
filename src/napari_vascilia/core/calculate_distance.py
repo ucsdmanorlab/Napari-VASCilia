@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.ndimage import binary_erosion
 from qtpy.QtWidgets import QDialog, QVBoxLayout, QProgressBar, QDesktopWidget, QMessageBox, QApplication
 from .VASCilia_utils import save_attributes  # Import the utility functions
 
@@ -73,6 +74,13 @@ class CalculateDistanceAction:
             component = np.zeros_like(self.plugin.labeled_volume)
             component[coords] = 1
             projection = np.sum(component, axis=2)
+
+            # if (self.plugin.num_components + 1 + len(self.plugin.filtered_ids)) >= 45:
+            #     structuring_element = np.ones((9, 9))
+            # else:
+            #     structuring_element = np.ones((15, 15))
+            #
+            # projection = binary_erosion(projection, structure=structuring_element).astype(projection.dtype)
             projection[projection > 1] = 1
             y_indices, x_indices = np.where(projection == 1)
             highest_point_index = np.argmin(y_indices)
@@ -82,10 +90,19 @@ class CalculateDistanceAction:
             self.plugin.start_points.append([y_highest, x_highest, z_highest.item(0)])
             centroid = find_centroid(projection)
 
-            for y in range(centroid[0], projection.shape[0]):
-                if projection[y, centroid[1]] == 0:
-                    bottom_y = y - 1
-                    break
+            # Here it is checking whether the centroid is inside or outside the object, if it is inside, we go down until we find the base otherwise we go up
+            if projection[centroid[0], centroid[1]] == 0:
+                # Centroid is outside the object, move upward to find a non-zero pixel
+                for y in range(centroid[0], -1, -1):  # Go upwards from the centroid to find a non-zero pixel
+                    if projection[y, centroid[1]] != 0:
+                        bottom_y = y + 1
+                        break
+
+            else:
+                for y in range(centroid[0], projection.shape[0]): # Go downward from the centroid to find a zero pixel
+                 if projection[y, centroid[1]] == 0:
+                     bottom_y = y - 1
+                     break
 
             x_2d, y_2d = centroid[1], bottom_y
 

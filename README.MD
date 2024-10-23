@@ -43,6 +43,8 @@ now you should have a folder called 'models'
     - 📁 **region_prediction** `[has weights for region prediction]`
     - 📁 **seg_model**  `[has the weights for the 3D instance segmentation model]`
     - 📁 **Train_predict_stereocilia_exe** `[executible needed by the plugin to segment and retrain the model using WSL]`  
+    - 📁 **ZFT_trim_model** `[deep learning model weights for z focus tracker algorithm]`  
+    - 📁 **rotation_correction_model** `[deep learning model weights for correcting the orientation of the stack]`  
  
 STEP3[download one dataset to test VASCilia]:  
 download one sample from our datasets to try in this link https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0  
@@ -94,6 +96,8 @@ Please update the /.../ portion according to your paths:
 "model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
 "model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
 "model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
+"model_ZFT_prediction": str('C:/Users/..../models/ZFT_trim_model/'),
+"model_rotation_prediction": str('C:/Users/..../models/rotation_correction_model/'),
 "flag_to_resize": false,
 "flag_to_pad": false,
 "resize_dimension": 1200,
@@ -116,8 +120,8 @@ There are several buttons inside the blugin in the right hand side of Napari:
 
 1. 'Open CZI Cochlea Files and Preprocess' button: read the CZI file.
 2. 'Upload Processed CZI Stack' button: Incase you already have processed the stack, then just uplead your Analysis_state.pkl that usually has all the variables needed to upload your analysis
-3. 'Trim Full Stack' button: this button allows you to choose only the slices of interest (will be automated in the near future)
-4. "Rotate' buttom: this button allows to rotate the stack to have proper analysis (will be automated in the near future)  
+3. 'Trim Full Stack' button: this button allows you to choose only the slices of interest (has been automated in v_1_1_0)
+4. "Rotate' buttom: this button allows to rotate the stack to have proper analysis (has been automated in v_1_1_0)  
 5. Segment with 3DBundleSeg: it is a two steps algorithm (2D detection + multi-object assignment algorithm across all slices) to produce robust 3D detection. 3DBundleSeg is the first instance segmentation model for stereocilia bundles in the literature. It is trained on P5 and P21 3D stacks (thousands of 2D instances) and it produces highly acccurate boundary delineation even in the most challenging datasets. Here are some examples:  
 
 <p align="center">

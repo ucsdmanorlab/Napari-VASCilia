@@ -90,20 +90,20 @@ Please update the /.../ portion according to your paths:
 
 ```sh
 {
-"rootfolder": "C:/Users/.../processed_data/",
-"wsl_executable": "C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2",
-"model": "C:/Users/.../models/seg_model/stereocilia_v7/",
-"model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
-"model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
-"model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
-"ZFT_trim_model": "C:/Users/..../models/ZFT_trim_model/",
-"rotation_correction_model": "C:/Users/..../models/rotation_correction_model/",
-"flag_to_resize": false,
-"flag_to_pad": false,
-"resize_dimension": 1200,
-"pad_dimension": 1500,
-"button_width": 60,
-"button_height": 22
+    "rootfolder": "C:/Users/.../processed_data/",
+    "wsl_executable": "C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2",
+    "model": "C:/Users/.../models/seg_model/stereocilia_v7/",
+    "model_output_path": "C:/Users/.../models/new_seg_model/stereocilia_v8/",
+    "model_region_prediction": "C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth",
+    "model_celltype_identification": "C:/Users/.../models/cell_type_identification_model/",
+    "ZFT_trim_model": "C:/Users/.../models/ZFT_trim_model/",
+    "rotation_correction_model": "C:/Users/.../models/rotation_correction_model/",
+    "flag_to_resize": false,
+    "flag_to_pad": false,
+    "resize_dimension": 1200,
+    "pad_dimension": 1500,
+    "button_width": 100,
+    "button_height": 35
 }
 ```
 

@@ -14,3 +14,7 @@ readlif
 czitools==0.4.1
 czifile
 npe2
+
+numpy==1.26.4
+colormap==1.1.0
+

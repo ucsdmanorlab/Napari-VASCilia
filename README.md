@@ -109,6 +109,23 @@ Please update the /.../ portion according to your paths:
 
 Congratulations :) &#127881;, now you can enjoy working with the plugin. 
 
+## Multi-Batch Processing Feature: Required File
+The **Multi-Batch Processing** feature in this package requires an additional file: `track_me_SORT_v3_exe.exe`. This file is **not included** in the repository or the pip installation due to size constraints.
+### Download the File
+You can download the file from the following link:  
+[Download track_me_SORT_v3_exe.exe]([https://www.dropbox.com/your-file-link](https://www.dropbox.com/scl/fo/sud3ziayvo7efcsbzgrd7/ACeJ6uMjNLcyk7ev0upJREE?rlkey=e6nzvpz8aoebzq4w3o5f339le&st=1qtmf3mf&dl=0))
+### If You Clone the Repository
+1. Download the file from the link above.
+2. Place the file in the following directory within the cloned repository: src/napari_vascilia/core/
+### If You Installed the Package via pip
+1. Download the file from the link above.
+2. Locate the installation directory for the package. You can find the installation path by running the following Python code: 
+```python
+import napari_vascilia
+print(napari_vascilia.__file__)
+3. Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/
+Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.
+
 ## Unique about VASCilia :  
 VASCilia saves all the intermediate results and the variables inside a pickle file while the user is using it in a very effiecint way. That allows a super fast uploading for the analysis if the user or their supervisor wants to keep working or review the analysis steps.  
 *[Click me to learn how to upload a z-stack](https://youtu.be/Sxm_fsjoWL0)*  

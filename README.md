@@ -51,7 +51,7 @@ download one sample from our datasets to try in this link https://www.dropbox.co
 create a folder, called raw_data folder and put the downloaded dataset inside the raw_data folder
 
   - 📁 **raw_data** `[raw data (stacks) is placed here]`
-    - 📄 Litter 12 Mouse 1 MIDDLE - delBUNdelCAP_Airyscan Processing.czi
+    - 📄 Litter 12 Mouse 4 MIDDLE - delBUNdelCAP_Airyscan Processing.czi
    
 Also create another folder called processed_data in which the plugin will use to store the results of the analysis
   

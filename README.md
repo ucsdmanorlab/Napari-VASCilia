@@ -123,6 +123,7 @@ You can download the file from the following link:
 ```python
 import napari_vascilia
 print(napari_vascilia.__file__)
+```
 3. Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/
 Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.
 

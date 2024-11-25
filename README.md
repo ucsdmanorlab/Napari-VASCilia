@@ -113,7 +113,7 @@ Congratulations :) &#127881;, now you can enjoy working with the plugin.
 The **Multi-Batch Processing** feature in this package requires an additional file: `track_me_SORT_v3_exe.exe`. This file is **not included** in the repository or the pip installation due to size constraints.
 ### Download the File
 You can download the file from the following link:  
-[Download track_me_SORT_v3_exe.exe]([https://www.dropbox.com/your-file-link](https://www.dropbox.com/scl/fo/sud3ziayvo7efcsbzgrd7/ACeJ6uMjNLcyk7ev0upJREE?rlkey=e6nzvpz8aoebzq4w3o5f339le&st=1qtmf3mf&dl=0))
+[Download track_me_SORT_v3_exe.exe]*[[https://www.dropbox.com/your-file-link](https://www.dropbox.com/scl/fo/sud3ziayvo7efcsbzgrd7/ACeJ6uMjNLcyk7ev0upJREE?rlkey=e6nzvpz8aoebzq4w3o5f339le&st=1qtmf3mf&dl=0)]
 ### If You Clone the Repository
 1. Download the file from the link above.
 2. Place the file in the following directory within the cloned repository: src/napari_vascilia/core/
@@ -124,7 +124,7 @@ You can download the file from the following link:
 import napari_vascilia
 print(napari_vascilia.__file__)
 ```
-3. Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/
+3. Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/  
 Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.
 
 ## Unique about VASCilia :  

@@ -2,6 +2,25 @@ import os
 from qtpy.QtWidgets import QLabel, QVBoxLayout, QWidget, QPushButton
 from qtpy.QtGui import QPixmap
 from qtpy.QtCore import Qt, QSize
+import importlib.resources
+# from core.open_cochlea_action import OpenCochleaAction
+# from core.upload_cochlea_action import UploadCochleaAction
+# from core.trim_cochlea_action import TrimCochleaAction
+# from core.rotate_cochlea_action import RotateCochleaAction
+# from core.segment_cochlea_action import SegmentCochleaAction
+# from core.visualize_track_action import VisualizeTrackAction
+# from core.delete_action import DeleteAction
+# from core.calculate_measurements import CalculateMeasurementsAction
+# from core.calculate_distance import CalculateDistanceAction
+# from core.save_distance import SaveDistanceAction
+# from core.identify_celltype_action import CellClusteringAction
+# from core.compute_signal_action import ComputeSignalAction
+# from core.predict_tonotopic_region import PredictRegionAction
+# from core.compute_orientation_action import ComputeOrientationAction
+# from core.commute_training_action import commutetraining
+# from core.reset_exit_action import reset_exit
+# from core.batch_action import BatchCochleaAction
+# from core.Process_multiple_stacks import BatchCochleaAction_multi_stacks
 from .core.open_cochlea_action import OpenCochleaAction
 from .core.upload_cochlea_action import UploadCochleaAction
 from .core.trim_cochlea_action import TrimCochleaAction
@@ -18,21 +37,20 @@ from .core.predict_tonotopic_region import PredictRegionAction
 from .core.compute_orientation_action import ComputeOrientationAction
 from .core.commute_training_action import commutetraining
 from .core.reset_exit_action import reset_exit
-import importlib.resources
-
+from .core.batch_action import BatchCochleaAction
+from .core.Process_multiple_stacks import BatchCochleaAction_multi_stacks
 
 def create_ui(plugin):
     print("create_ui called")  # Debugging print statement
     container = QWidget()
     layout = QVBoxLayout(container)
 
-    layout.setContentsMargins(0, 0, 0, 0)
-    #script_dir = os.path.dirname(os.path.abspath(__file__))
-    #logo_path = os.path.join(script_dir, 'assets', 'VASCilia_logo1.png')
-    # Use pkg_resources to locate the logo file in the installed package
-    # Use importlib.resources to access the logo file in the installed package
-    with importlib.resources.path('napari_vascilia.assets', 'VASCilia_logo1.png') as logo_path:
-        logo_pixmap = QPixmap(str(logo_path))
+    layout.setContentsMargins(0, 0, 0, 0)    #del (setup)
+    script_dir = os.path.dirname(os.path.abspath(__file__))  #del (setup)
+    logo_path = os.path.join(script_dir, 'assets', 'VASCilia_logo1.png')   #del (setup)
+    logo_pixmap = QPixmap(str(logo_path))
+    # with importlib.resources.path('napari_vascilia.assets', 'VASCilia_logo1.png') as logo_path:  # erturn this (setup)
+    #     logo_pixmap = QPixmap(str(logo_path))           # erturn this (setup)
     logo_size = QSize(125, 75)
     scaled_logo_pixmap = logo_pixmap.scaled(logo_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
@@ -43,12 +61,13 @@ def create_ui(plugin):
     layout.addWidget(logo_label)
 
     buttons_info = [
-        ("Open Cochlea Datasets (CZI,LIF,TIF) and Preprocess", lambda: OpenCochleaAction(plugin).execute()),
+        ("Open Cochlea Datasets (CZI,LIF,TIF) and Preprocess", lambda: OpenCochleaAction(plugin, batch = 0, batch_file_path = 'None').execute()),
         ("Upload Processed Stack", lambda: UploadCochleaAction(plugin).execute()),
         ("Trim Full Stack", lambda: TrimCochleaAction(plugin).execute()),
         ("Rotate", lambda: RotateCochleaAction(plugin).execute()),
         ("Segment with 3DBundleSeg", lambda: SegmentCochleaAction(plugin).execute()),
         ("Reconstruct and Visualize", lambda: VisualizeTrackAction(plugin).execute())
+
     ]
 
     for text, func in buttons_info:
@@ -97,6 +116,7 @@ def create_ui(plugin):
         ("Predict region", lambda: PredictRegionAction(plugin).predict_region())
     ]
 
+
     for text, func in buttons_info:
         button = QPushButton(text)
         button.clicked.connect(func)
@@ -106,6 +126,22 @@ def create_ui(plugin):
     plugin.orientation_action = ComputeOrientationAction(plugin)
     plugin.orientation_widget_choice = plugin.orientation_action.create_orientation_widget()
     layout.addWidget(plugin.orientation_widget_choice.native)
+
+    separator_label = QLabel("------- Batch Processing Section ------")
+    separator_label.setAlignment(Qt.AlignCenter)
+    layout.addWidget(separator_label)
+
+    buttons_info = [
+    ("Current Stack Batch Processing", lambda: BatchCochleaAction(plugin).execute()),
+    ("Multi Stack Batch Processing", lambda: BatchCochleaAction_multi_stacks(plugin).execute())
+    ]
+
+    for text, func in buttons_info:
+        button = QPushButton(text)
+        button.clicked.connect(func)
+        button.setMinimumSize(plugin.BUTTON_WIDTH, plugin.BUTTON_HEIGHT)
+        layout.addWidget(button)
+
 
     separator_label = QLabel("------- Training Section ------")
     separator_label.setAlignment(Qt.AlignCenter)

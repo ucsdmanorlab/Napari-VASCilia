@@ -31,7 +31,7 @@ class VisualizeTrackAction:
         """
         Executes the action to visualize and track Cochlea segmentations.
         """
-        self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
+        self.plugin.loading_label.setText("<font color='red'>Tracking Processing..., Wait</font>")
         QApplication.processEvents()
 
         def overlap_with_previous(component, previous_mask):

@@ -13,6 +13,7 @@ Author: Yasmin Kassim
 def display_images(viewer, display, full_stack_raw_images, full_stack_raw_images_trimmed, full_stack_rotated_images, filename_base, loading_name):
     images = []
     red_images = []
+    blue_images = []
     if display is None:
         display_path = full_stack_raw_images
     elif display == 1:
@@ -28,25 +29,33 @@ def display_images(viewer, display, full_stack_raw_images, full_stack_raw_images
         im = imread(rawim_file)
         red_images.append(im[:, :, 0])
         images.append(im[:, :, 1])
+        blue_images.append(im[:, :, 2])
 
     red_3d = np.stack(red_images, axis=-1)
     im_3d = np.stack(images, axis=-1)
+    blue_3d = np.stack(blue_images, axis=-1)
+
 
     # Add three dummy slices to avoid adding the stacks that has three slices as RGB image
     dummy_slice = np.zeros_like(im_3d[..., 0])
     red_3d = np.concatenate([red_3d, np.stack([dummy_slice] * 3, axis=-1)], axis=-1)
     im_3d = np.concatenate([im_3d, np.stack([dummy_slice] * 3, axis=-1)], axis=-1)
+    blue_3d = np.concatenate([blue_3d, np.stack([dummy_slice] * 3, axis=-1)], axis=-1)
+
 
     if 'Original Volume' in viewer.layers:
         viewer.layers['Original Volume'].data = im_3d
         viewer.layers['Protein Volume'].data = red_3d
+        viewer.layers['Protein Volume2'].data = blue_3d
     else:
         viewer.add_image(im_3d, name='Original Volume', colormap='green', blending='additive')
         viewer.add_image(red_3d, name='Protein Volume', colormap='red', blending='additive')
+        viewer.add_image(blue_3d, name='Protein Volume2', colormap='blue', blending='additive')
 
     # Remove dummy slices
     viewer.layers['Original Volume'].data = im_3d[..., :-3]
     viewer.layers['Protein Volume'].data = red_3d[..., :-3]
+    viewer.layers['Protein Volume2'].data = blue_3d[..., :-3]
 
     viewer.dims.order = (2, 0, 1)
     loading_name.setText(filename_base)
@@ -100,7 +109,9 @@ def save_attributes(plugin, filename):
         'text_annotations': plugin.text_annotations,
         'id_list': plugin.id_list,
         'orientation': plugin.orientation,
-        'scale_factor': plugin.scale_factor
+        'scale_factor': plugin.scale_factor,
+        'start_points_layer_properties': plugin.start_end_points_properties,
+        'rot_angle': plugin.rot_angle
     }
     with open(filename, 'wb') as file:
         pickle.dump(attributes_to_save, file)
@@ -156,3 +167,5 @@ def load_attributes(plugin, filename):
     plugin.text_positions = loaded_attributes.get('text_positions', None)
     plugin.text_annotations = loaded_attributes.get('text_annotations', None)
     plugin.scale_factor = loaded_attributes.get('scale_factor', 1)
+    plugin.start_end_points_properties = loaded_attributes.get('start_points_layer_properties', {})
+    plugin.rot_angle = loaded_attributes.get('rot_angle', 0)

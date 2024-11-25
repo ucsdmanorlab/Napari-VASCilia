@@ -125,6 +125,7 @@ class RotateCochleaAction:
             file_path_angle = os.path.dirname(self.plugin.full_stack_rotated_images)
             with open(os.path.join(file_path_angle, 'angle.txt'), 'w') as file:
                 file.write(str(angle))
+            self.plugin.rot_angle = angle
             self.plugin.display = 2
             self.plugin.analysis_stage = 3
             save_attributes(self.plugin, self.plugin.pkl_Path)

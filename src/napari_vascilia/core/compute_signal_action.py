@@ -137,8 +137,8 @@ class ComputeSignalAction:
         image_3d = np.zeros(self.plugin.labeled_volume.shape, dtype=np.uint8)
         for idx, image in enumerate(image_files):
             im = imread(os.path.join(self.plugin.full_stack_rotated_images, image))
-            redch = im[:, :, 0]   #redch = im[:, :, 0] for red channles (eps8) and redch = im[:, :, 1] for pheloiden
-            image_3d[:, :, idx] = redch
+            signalch = im[:, :, self.plugin.signal_intensity_channel]   #redch = im[:, :, 0] for red channles (eps8) and redch = im[:, :, 1] for pheloiden
+            image_3d[:, :, idx] = signalch
 
         darker_magenta = (0.8, 0, 0.8)
         [min_intensity, max_intensity, max_mean_intensity] = plot_responces(self.plugin.labeled_volume, image_3d, 'Allcells', 'magenta', 0, 0, 0) #darker_magenta
@@ -150,4 +150,5 @@ class ComputeSignalAction:
             [_, _, _] = plot_responces(self.plugin.OHC3, image_3d, 'OHC3', 'thistle', min_intensity, max_intensity, max_mean_intensity)
         self.plugin.loading_label.setText("")
         QApplication.processEvents()
+        plt.close('all')
         print('done')

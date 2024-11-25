@@ -72,7 +72,7 @@ class CellClusteringAction:
             msg_box.exec_()
             return
 
-        self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
+        self.plugin.loading_label.setText("<font color='red'>Cell Type Processing..., Wait</font>")
         QApplication.processEvents()
         self.plugin.viewer.layers['Lines'].visible = False
         self.plugin.viewer.layers['Base Points'].visible = False

@@ -7,7 +7,7 @@ def readme():
 
 setup(
     name="napari-vascilia",
-    version="1.1.0",
+    version="1.3.0",
     author="Yasmin Kassim",
     author_email="ymkgz8@mail.missouri.edu",
     description="A plugin for deep learning-based 3D analysis of cochlear hair cell stereocilia bundles.",
@@ -43,7 +43,7 @@ setup(
     ],
     entry_points={
         "napari.plugin": [
-            "napari_vascilia = napari_vascilia.Napari_VASCilia_v1_1_0:initialize_vascilia_ui",
+            "napari_vascilia = napari_vascilia.Napari_VASCilia_v1_3_0:initialize_vascilia_ui",
         ],
     },
 )

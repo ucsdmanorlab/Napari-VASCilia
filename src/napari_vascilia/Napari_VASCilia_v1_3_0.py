@@ -4,7 +4,7 @@ import os
 import json
 import napari
 from qtpy.QtWidgets import QWidget
-from .ui_setup import create_ui
+from .ui_setup import create_ui   # need to be changed to . (setup)
 from pathlib import Path
 from qtpy.QtWidgets import QApplication
 
@@ -76,8 +76,13 @@ class NapariPlugin:
         self.flag_to_pad = self.config.get('flag_to_pad', False)
         self.resize_dimension = self.config.get('resize_dimension', 1200)
         self.pad_dimension = self.config.get('pad_dimension', 1500)
+        self.green_channel = self.config.get('green_channel', 0)
+        self.red_channel = self.config.get('red_channel', 1)
+        self.blue_channel = self.config.get('blue_channel', -1)
+        self.signal_intensity_channel = self.config.get('signal_intensity_channel', 0)
+        #self.file_path_for_batch_processing = self.config.get('file_path_for_batch_processing', '')
         self.BUTTON_WIDTH = self.config.get('button_width', 60)
-        self.BUTTON_HEIGHT = self.config.get('button_height', 22)
+        self.BUTTON_HEIGHT = self.config.get('button_height', 19)
         self.train_iter = 75000
         self.training_path = None
         self.analysis_stage = None
@@ -125,6 +130,8 @@ class NapariPlugin:
         self.id_list = None
         self.orientation = None
         self.scale_factor = 1
+        self.start_end_points_properties = None
+        self.rot_angle = 0
 
     def initialize_ui(self) -> QWidget:
         """Initialize the user interface for the Napari plugin."""
@@ -152,7 +159,8 @@ def initialize_vascilia_ui():
 #
 #     def load_config(self):
 #         """Load the configuration from the 'config.json' file."""
-#         config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+#         #config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+#         config_path = Path.home() / '.napari-vascilia' / 'config.json'
 #         with open(config_path, 'r') as f:
 #             self.config = json.load(f)
 #
@@ -171,14 +179,24 @@ def initialize_vascilia_ui():
 #         self.flag_to_pad = self.config.get('flag_to_pad', False)
 #         self.resize_dimension = self.config.get('resize_dimension', 1200)
 #         self.pad_dimension = self.config.get('pad_dimension', 1500)
+#         # Channel Information
+#         self.green_channel = self.config.get('green_channel', 0)
+#         self.red_channel = self.config.get('red_channel', 1)
+#         self.blue_channel = self.config.get('blue_channel', -1)
+#         # From where the signal will be collected using the compute fleurescense signal
+#         self.signal_intensity_channel = self.config.get('signal_intensity_channel', 0)
+#         # Bottom's dimension
+#         self.BUTTON_WIDTH = self.config.get('button_width', 60)
+#         self.BUTTON_HEIGHT = self.config.get('button_height', 19)
+#
+#         # Batch Processing
+#         #self.file_path_for_batch_processing = self.config.get('file_path_for_batch_processing', '')
 #
 #         # Initialize other attributes
 #         self.train_iter = 75000
 #         self.training_path = None
 #         self.analysis_stage = None
 #         self.pkl_Path = None
-#         self.BUTTON_WIDTH = 60
-#         self.BUTTON_HEIGHT = 22
 #         self.filename_base = None
 #         self.full_stack_raw_images = None
 #         self.full_stack_length = None
@@ -222,6 +240,8 @@ def initialize_vascilia_ui():
 #         self.id_list = None
 #         self.orientation = None
 #         self.scale_factor = 1
+#         self.start_end_points_properties = None
+#         self.rot_angle = 0
 #
 #     def initialize_ui(self):
 #         """Initialize the user interface for the Napari plugin."""

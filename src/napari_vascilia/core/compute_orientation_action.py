@@ -77,7 +77,7 @@ class ComputeOrientationAction:
         save_attributes(self.plugin, self.plugin.pkl_Path)
 
     def calculate_orientation(self, method: str):
-        self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
+        self.plugin.loading_label.setText("<font color='red'>Angle Processing..., Wait</font>")
         QApplication.processEvents()
         orientation_dir = self.plugin.rootfolder + '/' + self.plugin.filename_base + '/orientation/'
         if not os.path.exists(orientation_dir):

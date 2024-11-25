@@ -2,6 +2,8 @@ import os
 import pandas as pd
 from skimage.measure import regionprops
 import numpy as np
+from qtpy.QtWidgets import QApplication
+
 class CalculateMeasurementsAction:
     """
     This class handles the action of calculating measurements for labeled volumes.
@@ -23,27 +25,54 @@ class CalculateMeasurementsAction:
         """
         Executes the action to calculate measurements for labeled volumes.
         """
+        self.plugin.loading_label.setText("<font color='red'>Measurements Processing..., Wait</font>")
+        QApplication.processEvents()
+
         measurements_dir = os.path.join(self.plugin.rootfolder, self.plugin.filename_base, 'measurements')
 
-        if not os.path.exists(measurements_dir):
-            os.makedirs(measurements_dir)
+        os.makedirs(measurements_dir, exist_ok=True)
 
-        props = regionprops(self.plugin.labeled_volume)
-        measurements_list = []
+        # 3D properties calculation
+        props_3d = regionprops(self.plugin.labeled_volume)
+        measurements_3d = []
 
-        for prop in props:
-            label = prop.label
-            volume = prop.area  # in voxels
-            centroid = prop.centroid
-
-            # Create a dictionary for each label's properties and append it to the list
-            measurements_list.append({
-                'Label': label,
-                'Volume (voxels)': volume,
-                'Centroid (y, x, z)': centroid
+        for prop in props_3d:
+            measurements_3d.append({
+                'Label': prop.label,
+                'Volume (voxels)': prop.area,
+                'Centroid (z, y, x)': prop.centroid,
+                'Bounding Box (min_z, min_y, min_x, max_z, max_y, max_x)': prop.bbox,
+                'Solidity': prop.solidity,
+                'Extent': prop.extent,
+                'Euler Number': prop.euler_number
             })
 
-        # Convert the list of dictionaries to a DataFrame and export to CSV
-        df = pd.DataFrame(measurements_list)
-        df.to_csv(os.path.join(measurements_dir, "measurements.csv"), index=False)
-        np.save(os.path.join(measurements_dir,'StereociliaBundle_labeled_volume.npy'), self.plugin.labeled_volume)
+        df_3d = pd.DataFrame(measurements_3d)
+        df_3d.to_csv(os.path.join(measurements_dir, "measurements_3d.csv"), index=False)
+
+        # 2D properties calculation on max projection along z-axis
+        max_proj = np.max(self.plugin.labeled_volume, axis=2)
+        props_2d = regionprops(max_proj)
+        measurements_2d = []
+
+        for prop in props_2d:
+            measurements_2d.append({
+                'Label': prop.label,
+                'Area (pixels)': prop.area,
+                'Centroid (y, x)': prop.centroid,
+                'Bounding Box (min_y, min_x, max_y, max_x)': prop.bbox,
+                'Orientation (radians)': prop.orientation,
+                'Major Axis Length': prop.major_axis_length,
+                'Minor Axis Length': prop.minor_axis_length,
+                'Eccentricity': prop.eccentricity,
+                'Convex Area': prop.convex_area,
+                'Equivalent Diameter': prop.equivalent_diameter
+            })
+
+        df_2d = pd.DataFrame(measurements_2d)
+        df_2d.to_csv(os.path.join(measurements_dir, "measurements_2d.csv"), index=False)
+
+        # Save the labeled volume
+        np.save(os.path.join(measurements_dir, 'StereociliaBundle_labeled_volume.npy'), self.plugin.labeled_volume)
+        self.plugin.loading_label.setText("")
+        QApplication.processEvents()

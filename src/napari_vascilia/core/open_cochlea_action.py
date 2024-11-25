@@ -24,7 +24,7 @@ class OpenCochleaAction:
 
     """
 
-    def __init__(self, plugin):
+    def __init__(self, plugin, batch, batch_file_path):
         """
         Initializes the OpenCochleaAction with a reference to the main plugin.
 
@@ -32,8 +32,12 @@ class OpenCochleaAction:
             plugin: The main plugin instance that this action will interact with.
         """
         self.plugin = plugin
+        self.batch = batch
+        self.batch_filepath = batch_file_path
 
     def load_config_setup_paths(self):
+        self.plugin.loading_label.setText("<font color='red'>Setup Paths..., Wait</font>")
+
         """Load the configuration from the 'config.json' file and verify paths."""
         config_path = Path.home() / '.napari-vascilia' / 'config.json'
 
@@ -123,7 +127,12 @@ class OpenCochleaAction:
                 'The stack is already read, if you want to read another stack, press "Reset VASCilia" button')
             msg_box.exec_()
             return
-        self.file_path, _ = QFileDialog.getOpenFileName()
+
+        if self.batch == 0:
+            self.file_path, _ = QFileDialog.getOpenFileName()
+        else:
+            self.file_path = self.batch_filepath
+
         if self.file_path:
             if os.path.splitext(self.file_path)[1].lower() == '.czi':
                 self.plugin.format = '.czi'
@@ -225,7 +234,7 @@ class OpenCochleaAction:
         # Read the file
         # Pre-process
         # Write the stack
-        self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
+        self.plugin.loading_label.setText("<font color='red'>Upload Processing..., Wait</font>")
         QApplication.processEvents()
         base_name = os.path.splitext(self.file_path)[0]
         self.plugin.filename_base = base_name.split('/')[-1].replace(' ', '')[:45]
@@ -370,7 +379,7 @@ class OpenCochleaAction:
         # Read the file
         # Pre-process
         # Write the stack
-        self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
+        self.plugin.loading_label.setText("<font color='red'>Upload Processing..., Wait</font>")
         QApplication.processEvents()
         base_name = os.path.splitext(self.file_path)[0]
         self.plugin.filename_base = base_name.split('/')[-1].replace(' ', '')[:45]
@@ -417,11 +426,14 @@ class OpenCochleaAction:
         # This loop is to find the green stack and also the red stack to store them as seperated stacks later in the code ,
         # and it also take each i,mage , normaliza it and combine them to RGB and apply CLAHE
         for i in range(np.shape(array6d)[3]):
-            Green_ch = array6d[0, 0, 0, i, :, :]
+            Green_ch = array6d[0, 0, self.plugin.green_channel, i, :, :]
             Green_stack.append(Green_ch)
-            Red_ch = array6d[0, 0, 1, i, :, :]
+            Red_ch = array6d[0, 0, self.plugin.red_channel, i, :, :]
             Red_stack.append(Red_ch)
-            Blue_ch = np.zeros((np.shape(Red_ch)[0], np.shape(Red_ch)[1]), dtype=np.uint8)
+            if self.plugin.blue_channel == -1:
+                Blue_ch = np.zeros((np.shape(Red_ch)[0], np.shape(Red_ch)[1]), dtype=np.uint8)
+            else:
+                Blue_ch = array6d[0, 0, self.plugin.blue_channel, i, :, :]
             RGB_image = np.stack([Red_ch, Green_ch, Blue_ch], axis=2)
             #image_8bit = RGB_image.compute()
             image_8bit = RGB_image
@@ -529,7 +541,7 @@ class OpenCochleaAction:
         # Read the file
         # Pre-process
         # Write the stack
-        self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
+        self.plugin.loading_label.setText("<font color='red'>Upload Processing..., Wait</font>")
         QApplication.processEvents()
         base_name = os.path.splitext(self.file_path)[0]
         self.plugin.filename_base = base_name.split('/')[-1].replace(' ', '')[:45]
@@ -562,15 +574,19 @@ class OpenCochleaAction:
 
         for i in range(im.shape[0]):
             if im.ndim == 4:  # 4D: (frames, channels, height, width)
-                Green_ch = im[i, 0, :, :]
-                Red_ch = im[i, 1, :, :]
+                Green_ch = im[i, self.plugin.green_channel, :, :]
+                Red_ch = im[i, self.plugin.red_channel, :, :]
             else:  # Assume 3D: (frames, height, width) with single channel
                 Green_ch = im[i, :, :]
                 Red_ch = np.zeros((Green_ch.shape[0], Green_ch.shape[1]), dtype=np.uint8)
 
+            if self.plugin.blue_channel == -1:
+                Blue_ch = np.zeros((Green_ch.shape[0], Green_ch.shape[1]), dtype=np.uint8)
+            else:
+                Blue_ch = im[i, self.plugin.blue_channel, :, :]
+
             Green_stack.append(np.array(Green_ch))
             Red_stack.append(np.array(Red_ch))
-            Blue_ch = np.zeros((Green_ch.shape[0], Green_ch.shape[1]), dtype=np.uint8)
             RGB_image = np.stack([Red_ch, Green_ch, Blue_ch], axis=2)
 
             image_8bit = (RGB_image - np.min(RGB_image)) / ((np.max(RGB_image) - np.min(RGB_image))) * 255

@@ -2,7 +2,9 @@ import numpy as np
 import os
 import pandas as pd
 from qtpy.QtWidgets import QDialog, QFormLayout, QLineEdit, QLabel, QPushButton, QMessageBox
+from qtpy.QtWidgets import QApplication
 from .VASCilia_utils import save_attributes  # Import the utility functions
+from .prepare_length_json import Prepare_length_json_Action
 
 class SaveDistanceAction:
     """
@@ -72,6 +74,8 @@ class SaveDistanceAction:
             msg_box.exec_()
             return
 
+        self.plugin.loading_label.setText("<font color='red'>Save Processing..., Wait</font>")
+        QApplication.processEvents()
         for idx, points in enumerate(self.plugin.start_points):
             self.plugin.start_points_layer.data[idx][2] = points[2]
         for idx, points in enumerate(self.plugin.end_points):
@@ -111,3 +115,7 @@ class SaveDistanceAction:
         self.plugin.viewer.layers['Lines'].data = lines
 
         save_attributes(self.plugin, self.plugin.pkl_Path)
+        #  please del or uncomment later, this is to collect the data for key point detection
+        #Prepare_length_json_Action(self.plugin).execute()
+        self.plugin.loading_label.setText("")
+        QApplication.processEvents()

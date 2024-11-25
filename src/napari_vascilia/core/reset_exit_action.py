@@ -76,3 +76,4 @@ class reset_exit:
         self.plugin.id_list_annotation = None  # This is for label annotation (label ID)
         self.plugin.ID_positions_annotation = None  # This is for label annotation (label ID)
         self.scale_factor = 1
+

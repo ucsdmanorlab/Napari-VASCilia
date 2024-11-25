@@ -5,7 +5,7 @@ categories: ["Segmentation", "Annotation", "Measurement", "Image Processing", "V
 contributions:
   commands:
     - id: Napari-VASCilia.initialize_ui
-      python_name: napari_vascilia.Napari_VASCilia_v1_1_0:initialize_vascilia_ui
+      python_name: napari_vascilia.Napari_VASCilia_v1_3_0:initialize_vascilia_ui
       title: Initialize UI
   widgets:
     - command: Napari-VASCilia.initialize_ui

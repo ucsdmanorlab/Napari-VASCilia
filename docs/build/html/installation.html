@@ -1,0 +1,693 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; VASCilia 1.3.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=27de968b"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'installation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start: Demo Datasets and Tutorials" href="quick_start.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/VASCilia_logo1.png" class="logo__image only-light" alt="VASCilia 1.3.0 documentation - Home"/>
+    <img src="_static/VASCilia_logo1.png" class="logo__image only-dark pst-js-only" alt="VASCilia 1.3.0 documentation - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start: Demo Datasets and Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/open_stack.html">Open Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Trim_Full_Stack.html">Trim Cochlea Stacks</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="features/Rotate.html">Rotate Cochlea Stacks</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="features/Segment_3DBundle.html">3D Segmentation of Cochlea Stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Recontruct_visualize.html">Visualizing and Tracking Cochlea Segmentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Delete.html">Deleting Labels in Cochlea Segmentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/calculate_measurments.html">Calculating Measurements for Labeled Volumes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/calculate_bundle_height.html">Calculating and Saving length for Bundle Heights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Perform_cell_clustering.html">Cell Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Compute_fluorescense_intensity.html">Signal Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Predict_region.html">Region Prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/compute_orientation.html">Orientation Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/Batch_processing.html">Batch Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/upload.html">Upload Previously Processed Cochlea Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/train_section.html">Commuting Training Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/reset_exit.html">Reset or Exit VASCilia</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/ucsdmanorlab/Napari-VASCilia" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/installation.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Installation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Installation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-wsl">Set Up WSL</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-download-the-deep-learning-trained-models">STEP 2: Download the Deep Learning Trained Models</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-download-a-test-dataset">STEP 3: Download a Test Dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions-for-cloning-and-installing-the-repository">Instructions for Cloning and Installing the Repository</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-cloning-the-repository">Option A: Cloning the Repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-installing-via-pypi">Option B: Installing via PyPI</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-batch-processing-feature-required-file">Multi-Batch Processing Feature: Required File</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-file">Download the File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
+<p>Follow these steps to install <strong>VASCilia</strong>.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>torch==1.12.1+cu113
+torchvision==0.13.1+cu113
+torchaudio==0.12.1+cu113
+segmentation-models-pytorch
+opencv-python
+matplotlib
+imagecodecs
+tifffile
+napari[all]
+scikit-learn
+readlif
+czitools==0.4.1
+czifile
+npe2
+numpy==1.26.4
+colormap==1.1.0
+</pre></div>
+</div>
+</section>
+<section id="steps">
+<h2>Steps<a class="headerlink" href="#steps" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section id="set-up-wsl">
+<h1>Set Up WSL<a class="headerlink" href="#set-up-wsl" title="Link to this heading">#</a></h1>
+<p>Follow these steps to set up Windows Subsystem for Linux (WSL) with the Ubuntu 20.04 distribution.</p>
+<ol class="arabic">
+<li><p><strong>Install WSL</strong>:
+1. Open the Command Prompt and install the Ubuntu 20.04 distribution by copying and pasting the following command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wsl<span class="w"> </span>--install<span class="w"> </span>-d<span class="w"> </span>Ubuntu-20.04
+</pre></div>
+</div>
+<p>After the setup successfully completes, reboot your computer.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Open Ubuntu by typing “Ubuntu” in the Windows search bar.</p></li>
+</ol>
+</li>
+<li><p><strong>Verify Installation</strong>:
+To check if CUDA and the GPU are correctly installed and available, type the following command in the Ubuntu terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
+</pre></div>
+</div>
+<p>This should display information about your GPU and CUDA installation.</p>
+</li>
+</ol>
+</section>
+<section id="step-2-download-the-deep-learning-trained-models">
+<h1>STEP 2: Download the Deep Learning Trained Models<a class="headerlink" href="#step-2-download-the-deep-learning-trained-models" title="Link to this heading">#</a></h1>
+<ol class="arabic">
+<li><p>Download the <strong>VASCilia_trained_models</strong> from the following link:
+<a class="reference external" href="https://www.dropbox.com/scl/fo/jsvldda8yvma3omfijxxn/ALeDfYUbiOuj69Flbc728rs?rlkey=mtilfz33qiizpul7uyisud5st&amp;st=41kjlbw0&amp;dl=0">VASCilia Trained Models on Dropbox</a></p>
+<p>After downloading, you should have a folder structure like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>📁 models [Trained models]
+├── 📁 cell_type_identification_model
+│      Contains weights for cell type identification (IHC vs OHC).
+├── 📁 new_seg_model
+│      Where fine-tuned models will be stored.
+├── 📁 region_prediction
+│      Contains weights for region prediction.
+├── 📁 seg_model
+│      Contains weights for the 3D instance segmentation model.
+├── 📁 Train_predict_stereocilia_exe
+│      Executable for segmentation and retraining the model using WSL.
+├── 📁 ZFT_trim_model
+│      Contains deep learning model weights for the z-focus tracker algorithm.
+└── 📁 rotation_correction_model
+       Contains deep learning model weights for correcting stack orientation.
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="step-3-download-a-test-dataset">
+<h1>STEP 3: Download a Test Dataset<a class="headerlink" href="#step-3-download-a-test-dataset" title="Link to this heading">#</a></h1>
+<ol class="arabic">
+<li><p>Download one of our sample datasets to test <strong>VASCilia</strong>:
+<a class="reference external" href="https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&amp;dl=0">Sample Datasets on Dropbox</a></p></li>
+<li><p>After downloading, create a folder named <cite>raw_data</cite> and place the dataset inside it. Your folder structure should look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>📁 raw_data [Raw data (stacks) is placed here]
+└── 📄 Litter 12 Mouse 4 MIDDLE - delBUNdelCAP_Airyscan Processing.czi
+</pre></div>
+</div>
+</li>
+<li><p>Create another folder named <cite>processed_data</cite>. This is where the plugin will store the analysis results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>📁 processed_data [Processed data will be stored here]
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="instructions-for-cloning-and-installing-the-repository">
+<h1>Instructions for Cloning and Installing the Repository<a class="headerlink" href="#instructions-for-cloning-and-installing-the-repository" title="Link to this heading">#</a></h1>
+<p>You can set up <strong>VASCilia</strong> by following <strong>Option A</strong> or <strong>Option B</strong>:</p>
+<section id="option-a-cloning-the-repository">
+<h2>Option A: Cloning the Repository<a class="headerlink" href="#option-a-cloning-the-repository" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Clone the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ucsdmanorlab/Napari-VASCilia.git
+<span class="nb">cd</span><span class="w"> </span>Napari-VASCilia
+</pre></div>
+</div>
+</li>
+<li><p>Create and activate the conda environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-VASCilia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>napari-VASCilia
+</pre></div>
+</div>
+</li>
+<li><p>Install dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p>Launch Napari:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="option-b-installing-via-pypi">
+<h2>Option B: Installing via PyPI<a class="headerlink" href="#option-b-installing-via-pypi" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Create and activate the conda environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-n<span class="w"> </span>napari-VASCilia<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>napari-VASCilia
+</pre></div>
+</div>
+</li>
+<li><p>Download the <cite>requirements.txt</cite> file from this repository and ensure it is in your working directory.</p></li>
+<li><p>Install dependencies and VASCilia:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>Napari-VASCilia
+</pre></div>
+</div>
+</li>
+<li><p>Launch Napari:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Update the paths in <cite>config.json</cite> as needed. The <cite>config.json</cite> file will be generated upon running the plugin for the first time. The folder structure will look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>📁 C:/Users/Username/ [Your home folder]
+├── 📁 .napari-vascilia [Folder path]
+└── 📄 config.json
+</pre></div>
+</div>
+<p>2. <strong>Update the `config.json` File</strong>:
+Edit the <cite>config.json</cite> file to reflect your system’s paths. Replace <cite>/…/</cite> portions with the correct paths for your system. Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;rootfolder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../processed_data/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;wsl_executable&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/Train_predict_stereocilia_exe/Train_Predict_stereocilia_exe_v2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/seg_model/stereocilia_v7/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model_output_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/new_seg_model/stereocilia_v8/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model_region_prediction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/region_prediction/resnet50_best_checkpoint_resnet50_balancedclass.pth&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model_celltype_identification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/cell_type_identification_model/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ZFT_trim_model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/ZFT_trim_model/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;rotation_correction_model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/.../models/rotation_correction_model/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;green_channel&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;red_channel&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;blue_channel&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;signal_intensity_channel&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flag_to_resize&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flag_to_pad&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resize_dimension&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pad_dimension&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1500</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;button_width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;button_height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>3. <strong>Congratulations! 🎉</strong>
+You are now ready to use <strong>VASCilia</strong>. Enjoy working with the plugin!</p>
+</section>
+</section>
+<section id="multi-batch-processing-feature-required-file">
+<h1>Multi-Batch Processing Feature: Required File<a class="headerlink" href="#multi-batch-processing-feature-required-file" title="Link to this heading">#</a></h1>
+<p>The Multi-Batch Processing feature in this package requires an additional file: <strong>track_me_SORT_v3_exe.exe</strong>. This file is not included in the repository or the pip installation due to size constraints.</p>
+<section id="download-the-file">
+<h2>Download the File<a class="headerlink" href="#download-the-file" title="Link to this heading">#</a></h2>
+<p>You can download the file from the following link:</p>
+<p><a class="reference external" href="https://www.dropbox.com/scl/fo/sud3ziayvo7efcsbzgrd7/ACeJ6uMjNLcyk7ev0upJREE?rlkey=e6nzvpz8aoebzq4w3o5f339le&amp;st=a9m73egz&amp;dl=0">Download track_me_SORT_v3_exe.exe</a></p>
+</section>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Link to this heading">#</a></h2>
+<p># If You Clone the Repository
+1. Download the file from the link above.
+2. Place the file in the following directory within the cloned repository:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">src</span><span class="o">/</span><span class="n">napari_vascilia</span><span class="o">/</span><span class="n">core</span><span class="o">/</span>
+</pre></div>
+</div>
+<p># If You Installed the Package via pip
+1. Download the file from the link above.
+2. Locate the installation directory for the package. To find the installation path, run the following Python code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari_vascilia</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">napari_vascilia</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Place the downloaded file in the following directory:</p></li>
+</ol>
+<p><strong>Note</strong>: All other features of the package will function as expected without this file. This file is exclusively required for batch processing of multiple files.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="quick_start.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quick Start: Demo Datasets and Tutorials</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Installation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-wsl">Set Up WSL</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-download-the-deep-learning-trained-models">STEP 2: Download the Deep Learning Trained Models</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-download-a-test-dataset">STEP 3: Download a Test Dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions-for-cloning-and-installing-the-repository">Instructions for Cloning and Installing the Repository</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-cloning-the-repository">Option A: Cloning the Repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-installing-via-pypi">Option B: Installing via PyPI</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-batch-processing-feature-required-file">Multi-Batch Processing Feature: Required File</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-file">Download the File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yasmin Kassim
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Yasmin Kassim.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

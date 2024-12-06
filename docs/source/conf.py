@@ -27,15 +27,13 @@ exclude_patterns = []
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_logo = "_static/VASCilia_logo1.png"
-html_baseurl = "https://github.com/ucsdmanorlab/Napari-VASCilia/"
+html_baseurl = "https://ucsdmanorlab.github.io/Napari-VASCilia/"
 html_css_files = [
-    "docs/_static/styles/sphinx-book-theme.css",
-    "docs/_static/styles/theme.css",
-    "docs/_static/pygments.css",
-    "docs/_static/custom.css",
+    "_static/styles/sphinx-book-theme.css",
+    "_static/styles/theme.css",
+    "_static/pygments.css",
+    "_static/custom.css",
 ]
-
-
 
 html_theme_options = {
     "repository_url": "https://github.com/ucsdmanorlab/Napari-VASCilia",
@@ -44,7 +42,7 @@ html_theme_options = {
     "use_fullscreen_button": True,
     "show_navbar_depth": 2,
     "logo": {
-        "image_light": "docs/_static/VASCilia_logo1.png",
-        "image_dark": "docs/_static/VASCilia_logo1.png",
+        "image_light": "_static/VASCilia_logo1.png",
+        "image_dark": "_static/VASCilia_logo1.png",
     },
 }

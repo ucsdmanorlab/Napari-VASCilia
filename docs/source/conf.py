@@ -27,8 +27,15 @@ exclude_patterns = []
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_logo = "_static/VASCilia_logo1.png"
-html_css_files = ["custom.css"]
-html_baseurl = "https://ucsdmanorlab.github.io/Napari-VASCilia"
+html_baseurl = "https://ucsdmanorlab.github.io/Napari-VASCilia/"
+html_css_files = [
+    "_static/styles/sphinx-book-theme.css",
+    "_static/styles/theme.css",
+    "_static/pygments.css",
+    "custom.css",
+]
+
+
 
 html_theme_options = {
     "repository_url": "https://github.com/ucsdmanorlab/Napari-VASCilia",

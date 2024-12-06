@@ -23,7 +23,7 @@ Furthermore, we are committed to supporting research growth with a comprehensive
 VASCilia is here to support researchers in their quest for deeper understanding and innovation in the study of cochlear structures.  
 *[click the image to see a highlights reel of the plugin](https://youtu.be/MwMOxJQ_elo)*  
 
-[![Watch the video](images/VASCilia_pipeline2.png)](https://youtu.be/MwMOxJQ_elo)
+[![Watch the video](images/main_pipeline.png)](https://youtu.be/MwMOxJQ_elo)
 
 *[Click me to see a video demo of the entire workflow](https://youtu.be/mNPJ1g0vEW8)*  
 

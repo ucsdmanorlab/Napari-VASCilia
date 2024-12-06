@@ -25,14 +25,14 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_book_theme'
-html_static_path = ['_static']
-html_logo = "_static/VASCilia_logo1.png"
+html_static_path = ['docs/_static']
+html_logo = "VASCilia_logo1.png"
 html_baseurl = "https://ucsdmanorlab.github.io/Napari-VASCilia/"
 html_css_files = [
-    "_static/styles/sphinx-book-theme.css",
-    "_static/styles/theme.css",
-    "_static/pygments.css",
-    "_static/custom.css",
+    "styles/sphinx-book-theme.css",
+    "styles/theme.css",
+    "pygments.css",
+    "custom.css",
 ]
 
 html_theme_options = {

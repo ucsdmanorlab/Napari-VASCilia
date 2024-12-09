@@ -1,5 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
-
+# Build by Yasmin Kassim
 # -- Project information -----------------------------------------------------
 project = 'VASCilia'
 copyright = '2024, Yasmin Kassim'

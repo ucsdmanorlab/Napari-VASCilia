@@ -4,6 +4,10 @@
   <img src="images/logo_3d.png" alt="VASCilia Logo" width="170">
 </p>
 
+## Documentation
+
+Check out the full documentation for this project [here](https://ucsdmanorlab.github.io/Napari-VASCilia/).
+
 Explore the complexities of the cochlea with VASCilia, a Napari plugin created to aid in the 3D segmentation and quantification of stereocilia bundles. Equipped with a range of thoughtful features, VASCilia stands for (Vision Analysis StereoCilia) and it provides a supportive tool for auditory research, including:  
 1. Slice Selection: Easily navigate through 3D stacks to find the slices that matter most for your research.
 2. Stack Rotation: Adjust the orientation of your stack to facilitate better analysis.

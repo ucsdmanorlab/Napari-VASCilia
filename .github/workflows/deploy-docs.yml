@@ -1,24 +1,37 @@
-name: Deploy Sphinx Documentation to GitHub Pages
+# Workflow for deploying Sphinx documentation to GitHub Pages
+name: Deploy Sphinx Documentation to Pages
 
 on:
   push:
-    branches:
-      - main  # Replace 'main' with your default branch if it's different
+    branches: ["main"]  # Replace "main" with your default branch if different
+  workflow_dispatch:  # Allows manual trigger from Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: windows-latest  # Use a Windows environment for the build
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: windows-latest  # Use Windows for consistency with your local setup
 
     steps:
       # Step 1: Check out the repository
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Python environment on Windows
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10  # Match your local Python version (3.10.14)
+          python-version: "3.10"  # Matches your local Python version
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -26,14 +39,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install sphinx sphinx-book-theme
 
-      # Step 4: Build Sphinx documentation
-      - name: Build Sphinx Docs
-        run: |
-          sphinx-build -b html docs/source/ docs/_build/html
+      # Step 4: Build Sphinx Documentation
+      - name: Build Sphinx Documentation
+        run: sphinx-build -b html docs/source/ docs/build/html
 
-      # Step 5: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      # Step 5: Upload Artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/html
+          path: "docs/build/html"  # Path to your Sphinx build output
+
+      # Step 6: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

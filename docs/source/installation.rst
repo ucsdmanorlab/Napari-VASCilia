@@ -248,4 +248,105 @@ To try an example, a copy of this file is included with our sample datasets for 
 Be sure to update the paths in the CSV so they match your computer.
 
 
+.. _config-json-parameters:
+
+Configuration reference (``config.json``) — field-by-field guide
+================================================================
+
+This section explains **every parameter** in your ``config.json`` and how to change it safely.
+
+
+Note: VASCilia reads the configuration **at startup**. After editing
+   ``config.json``, fully close Napari and relaunch it so changes take effect.
+
+Paths (models, executables, and outputs)
+----------------------------------------
+
+- **``rootfolder``** (*string, path*)  
+  Working directory for the project. **All intermediate results, plots, and CSV files** will be stored here after processing.
+
+- **``wsl_executable``** (*string, path*)  
+  Path to the Windows-side executable used for segmentation/retraining via WSL.
+
+- **``model``** (*string, path*)  
+  Folder containing **pretrained 3D instance-segmentation weights**.
+
+- **``model_output_path``** (*string, path*)  
+  Folder where **newly fine-tuned models** will be saved.
+
+- **``model_region_prediction``** (*string, path to file*)  
+  Checkpoint for the **region-prediction** model.
+
+- **``model_celltype_identification``** (*string, path*)  
+  Folder with weights for **cell-type identification** (IHC vs OHC).
+
+- **``ZFT_trim_model``** (*string, path*)  
+  Folder with weights for the **Z-focus tracker** model.
+
+- **``rotation_correction_model``** (*string, path*)  
+  Folder with weights for **stack orientation correction**.
+
+.. tip::
+   You already set up these model/executable paths; **you usually don’t need to change them again**.
+   You can place the ``models`` folder anywhere—just update these paths if you move it.
+
+Channel mapping
+---------------
+
+- **``green_channel``**, **``red_channel``**, **``blue_channel``** (*integers; zero-based*)  
+  Indices for your image channels. Example: if your stacks have only two channels (green and red),
+  use ``green_channel: 0``, ``red_channel: 1``, and set ``blue_channel: -1`` to **disable** blue.  
+  If you *do* have a third channel, set ``blue_channel: 2``.
+
+Intensity measurement options
+-----------------------------
+
+- **``signal_intensity_channel``** (*integer*)  
+  Channel used by the **Compute Fluorescence Intensity** button.  
+  You can change this to generate plots/CSVs for different channels, **but you must restart Napari each time** for the change to take effect.
+
+- **``subtract_background``** (*boolean; default ``false``*)  
+  When ``true``, perform background subtraction before intensity computation.  
+  (This is specifically applied by **Compute Fluorescence Intensity**.)
+
+- **``dilate_labels``** (*boolean; default ``false``*)  
+  When ``true``, dilate the segmentation labels slightly to capture more boundary signal.  
+  (Also applied by **Compute Fluorescence Intensity**.)
+
+Resizing and padding
+--------------------
+
+- **``flag_to_upscale``** (*boolean; default ``false``*)  
+  If ``true``, make the image larger when it’s small (typically **< 900 pixels** on the long side).
+
+- **``flag_to_downscale``** (*boolean; default ``false``*)  
+  If ``true``, make the image smaller when it’s very large (typically **> 2500 pixels** on the long side).
+
+- **``flag_to_pad``** (*boolean; default ``false``*)  
+  If ``true``, pad the image canvas when bundles have good scale/shape but the overall frame is small.
+
+- **``resize_dimension``** (*integer; pixels; e.g., ``1500``*)  
+  Target size for upscaling or downscaling (applies when either flag above is enabled).
+
+- **``pad_dimension``** (*integer; pixels; e.g., ``2000``*)  
+  Target canvas size when padding is enabled.
+
+Acquisition metadata
+--------------------
+
+- **``force_manual_resolution``** (*0 or 1; default ``0``*)  
+  The plugin reads resolution from the image metadata automatically. If metadata is missing, it prompts you.  
+  Set to ``1`` to **force** manual entry of resolution values even if metadata exists.
+
+UI preferences
+--------------
+
+- **``button_width``**, **``button_height``** (*integers; pixels; e.g., ``60`` and ``18``*)  
+  Width and height of plugin buttons. Increase/decrease if buttons look too small or large on your machine.
+
+Important
+---------
+
+- Changes to any of the above **do not take effect until you restart the plugin**
+  (fully close Napari and launch it again).
 

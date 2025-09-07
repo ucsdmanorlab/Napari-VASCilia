@@ -65,6 +65,7 @@ class CalculateDistanceAction:
         IDtoPointsMAP_list = []
         tempid = 0
 
+
         for cc in range(self.plugin.num_components + 1 + len(self.plugin.filtered_ids)):
             if cc == 0 or cc in self.plugin.filtered_ids:
                 continue
@@ -86,12 +87,47 @@ class CalculateDistanceAction:
             projection = binary_erosion(projection, structure=structuring_element).astype(projection.dtype)
             # ---------------------------------------------------
             projection[projection > 1] = 1
+            # This approach is to get the highest point in any layer, and that layer will be the red point
+            # y_indices, x_indices = np.where(projection == 1)
+            # highest_point_index = np.argmin(y_indices)
+            # x_highest = x_indices[highest_point_index]
+            # y_highest = y_indices[highest_point_index]
+            # z_highest = np.where(component[y_highest, x_highest, :] == 1)[0]
+            # self.plugin.start_points.append([y_highest, x_highest, z_highest.item(0)])
+
+            # This approach is to get the highest point in last layer, and that layer will be the red point
+            # Find the full depth range (top to bottom in z)
+            # z_non_zero = np.where(np.any(component != 0, axis=(0, 1)))[0]  # Look for non-zero pixels in the entire component
+            # z_start = z_non_zero[-1]  # Last non-zero z slice (Top of the component)
+            # # Find the coordinates of the highest point in the last frame (z_start)
+            # y_indices, x_indices = np.where(component[:, :, z_start] != 0)  # Find non-zero pixels at z_start
+            # highest_point_index = np.argmin(y_indices)  # Find the topmost point (smallest y value)
+            # x_highest = x_indices[highest_point_index]
+            # y_highest = y_indices[highest_point_index]
+            # self.plugin.start_points.append([y_highest, x_highest, z_start])
+
+            # # This approach is to get the highest point in any layer, and that layer will be the red point considering half depth
+            # z_non_zero = np.where(np.any(component != 0, axis=(0, 1)))[0]  # Non-zero slices in z
+            # z_start = z_non_zero[-1]  # Last non-zero z slice (top of the component)
+            # z_end = z_non_zero[0]  # First non-zero z slice (bottom of the component)
+            # depth = z_start - z_end + 1
+            # half_depth = (depth + 1) // 2  # Half depth rounded up
+            # adjusted_z = max(z_start - half_depth + 1, 1)  # Use 1 if adjusted_z goes below 1
+            # y_indices, x_indices = np.where(projection == 1)
+            # highest_point_index = np.argmin(y_indices)  # Top-most point (smallest y)
+            # x_highest = x_indices[highest_point_index]
+            # y_highest = y_indices[highest_point_index]
+            # self.plugin.start_points.append([y_highest, x_highest, adjusted_z])
+
+            # This approach is to get the highest point in any layer, and that layer will be the red point considering full depth
+            z_non_zero = np.where(np.any(component != 0, axis=(0, 1)))[0]  # Non-zero slices in z
+            z_start = z_non_zero[-1]  # Last non-zero z slice (top of the component)
             y_indices, x_indices = np.where(projection == 1)
-            highest_point_index = np.argmin(y_indices)
+            highest_point_index = np.argmin(y_indices)  # Top-most point (smallest y)
             x_highest = x_indices[highest_point_index]
             y_highest = y_indices[highest_point_index]
-            z_highest = np.where(component[y_highest, x_highest, :] == 1)[0]
-            self.plugin.start_points.append([y_highest, x_highest, z_highest.item(0)])
+            self.plugin.start_points.append([y_highest, x_highest, z_start])
+
             start_point_ids.append(cc)
             centroid = find_centroid(projection)
 

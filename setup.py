@@ -7,7 +7,7 @@ def readme():
 
 setup(
     name="napari-vascilia",
-    version="1.3.0",
+    version="1.4.0",
     author="Yasmin Kassim",
     author_email="ymkgz8@mail.missouri.edu",
     description="A plugin for deep learning-based 3D analysis of cochlear hair cell stereocilia bundles.",
@@ -23,27 +23,28 @@ setup(
     package_dir={"": "src"},
     include_package_data=True,
     package_data={
-            "napari_vascilia": ["assets/VASCilia_logo1.png"],
-        },
+        "napari_vascilia": ["napari.yaml", "assets/VASCilia_logo1.png"],
+    },
     install_requires=[
-        "torch==1.12.1+cu113",
-        "torchvision==0.13.1+cu113",
-        "torchaudio==0.12.1+cu113",
-        "segmentation-models-pytorch",
+        # exact pins to avoid source builds on Windows
+        "numpy==1.26.4",
+        "scikit-learn==1.3.2",
+        # your other deps
         "opencv-python",
         "matplotlib",
         "imagecodecs",
         "tifffile",
         "napari[all]",
-        "scikit-learn",
         "readlif",
         "czitools==0.4.1",
-        "czifile",
-        "npe2"
+        "npe2",
+        "colormap==1.1.0",
+        "segmentation-models-pytorch==0.3.3",
+        "pretrainedmodels==0.7.4"
     ],
     entry_points={
-        "napari.plugin": [
-            "napari_vascilia = napari_vascilia.Napari_VASCilia_v1_3_0:initialize_vascilia_ui",
+        "napari.manifest": [
+            "napari-vascilia = napari_vascilia:napari.yaml",
         ],
     },
 )

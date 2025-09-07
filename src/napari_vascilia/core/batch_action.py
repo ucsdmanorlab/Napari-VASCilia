@@ -14,16 +14,11 @@ from .rotate_AI import Rotate_AI_prediction
 from .segment_cochlea_action import SegmentCochleaAction
 from .visualize_track_action import VisualizeTrackAction
 from .calculate_measurements import CalculateMeasurementsAction
-from .calculate_distance import CalculateDistanceAction
 from .save_distance import SaveDistanceAction
 from .identify_celltype_action import CellClusteringAction
 from .compute_signal_action import ComputeSignalAction
-from .predict_tonotopic_region import PredictRegionAction
 from .compute_orientation_action import ComputeOrientationAction
-from .commute_training_action import commutetraining
-from .reset_exit_action import reset_exit
-from .visualize_track_SORT import VisualizeTrackActionSORT
-from .prepare_length_json import Prepare_length_json_Action
+
 
 class BatchCochleaAction:
     """
@@ -43,8 +38,10 @@ class BatchCochleaAction:
 
     def execute(self):
 
-
-        if self.plugin.analysis_stage >= 2:
+        stage = self.plugin.analysis_stage
+        if stage is None:
+            stage = 0
+        if stage >= 2:
             msg_box = QMessageBox()
             msg_box.setWindowTitle('Analysis Details')
             msg_box.setText(
@@ -158,8 +155,7 @@ class BatchCochleaAction:
         self.plugin.loading_label.setText("<font color='red'>Segmentation Processing..., Wait</font>")
         QApplication.processEvents()
         SegmentCochleaAction(self.plugin).execute()
-        #VisualizeTrackAction(self.plugin).execute()
-        VisualizeTrackActionSORT(self.plugin).execute()
+        VisualizeTrackAction(self.plugin).execute()
 
         # Calculate measurments and save the 3D label
         CalculateMeasurementsAction(self.plugin).execute()

@@ -24,9 +24,50 @@ class ComputeSignalAction:
         self.plugin = plugin
 
     def compute_protein_intensity(self):
+
+        def save_per_layer_intensity(label3D, image_3d, celltype, background3D_intensity=0, subtract_background=True):
+            """
+            Save the total and mean intensity per Z-layer for each labeled region.
+            Applies background subtraction if enabled.
+            """
+            intensity_dir = self.plugin.rootfolder + '/' + self.plugin.filename_base + '/Intensity_response/'
+            output_path = os.path.join(intensity_dir, celltype, 'All_bundles_per_layer_intensity.csv')
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+            labels = np.unique(label3D)
+            labels = labels[labels != 0]  # exclude background label
+
+            with open(output_path, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(['Region ID', 'Z Index', 'Total Intensity', 'Mean Intensity'])
+
+                for label in labels:
+                    mask = label3D == label
+                    for z in range(label3D.shape[2]):
+                        mask_slice = mask[:, :, z]
+                        img_slice = image_3d[:, :, z]
+
+                        if np.any(mask_slice):
+                            total_intensity = img_slice[mask_slice].sum()
+                            mean_intensity = img_slice[mask_slice].mean()
+
+                            if subtract_background:
+                                total_intensity -= (background3D_intensity * mask_slice.sum())
+                                mean_intensity -= background3D_intensity
+
+                            total_intensity = max(total_intensity, 0)
+                            mean_intensity = max(mean_intensity, 0)
+                        else:
+                            total_intensity = 0
+                            mean_intensity = 0
+
+                        writer.writerow([label, z, total_intensity, mean_intensity])
+
+            print(f"Per-layer intensity saved to {output_path}")
+
         def dilate_label_within_bounding_box(label3D, structuring_element=None):
             if structuring_element is None:
-                structuring_element = ball(5)  # Or any other desired size
+                structuring_element = ball(7)  # Or any other desired size
             # Initialize the output image
             dilated_label3D = np.zeros_like(label3D)
             # Get unique labels, ignoring background (0)
@@ -44,12 +85,17 @@ class ComputeSignalAction:
                 dilated_label3D[region_slices][dilated_local_mask] = label
             return dilated_label3D
 
-        def plot_responces(label3D, image_3d, celltype, barcolor, min_intensity, max_intensity, max_mean_intensity):
-            label3D = dilate_label_within_bounding_box(label3D, structuring_element=None)
+        def plot_responces(label3D, image_3d, celltype, barcolor, min_intensity, max_intensity, max_mean_intensity, subtract_background=True):
+
+            # if celltype == 'Allcells':
+            #     self.plugin.viewer.add_labels(label3D, name=f"{celltype}_dilated")
             props = regionprops(label3D, intensity_image=image_3d)
             # identify the background mask to do background subtraction
-            background3D = label3D == 0
-            background3D_intensity = np.mean(image_3d[background3D])
+            background3D_intensity = 0
+            if subtract_background:
+                print('Background Subtraction has been applied')
+                background3D = label3D == 0
+                background3D_intensity = np.mean(image_3d[background3D])
             # Initialize lists to store mean and total intensities
             mean_intensities = []
             total_intensities = []
@@ -57,18 +103,23 @@ class ComputeSignalAction:
             # Collect mean and total intensity for each region
             for region in props:
                 labels.append(region.label)
-                # mean_intensity
-                mean_intensity = region.mean_intensity - background3D_intensity
+
+                if subtract_background:
+                    mean_intensity = region.mean_intensity - background3D_intensity
+                    total_intensity = region.intensity_image.sum() - (background3D_intensity * region.area)
+                else:
+                    mean_intensity = region.mean_intensity
+                    total_intensity = region.intensity_image.sum()
+
                 mean_intensity = max(mean_intensity, 0)
-                mean_intensities.append(mean_intensity)
-                # total_intensity
-                total_intensity = region.intensity_image.sum() - (background3D_intensity * region.area)
                 total_intensity = max(total_intensity, 0)
+
+                mean_intensities.append(mean_intensity)
                 total_intensities.append(total_intensity)
 
             # CSV file
             # Now, write the collected data to a CSV file
-            intensity_dir = self.plugin.rootfolder + '/' + self.plugin.filename_base + '/Protein_responce/'
+            intensity_dir = self.plugin.rootfolder + '/' + self.plugin.filename_base + '/Intensity_response/'
             with open(intensity_dir + '/' + celltype + '/' + 'region_intensities.csv', 'w', newline='') as file:
                 writer = csv.writer(file)
                 # Write the header
@@ -108,11 +159,11 @@ class ComputeSignalAction:
             plt.ylim(0, 1)
             plt.tight_layout()
             plt.savefig(intensity_dir + '/' + celltype + '/' + 'total_intensity_per_cell.png', dpi=300)
-            return min_intensity, max_intensity, max_mean_intensity
+            return min_intensity, max_intensity, max_mean_intensity, background3D_intensity
 
         self.plugin.loading_label.setText("<font color='red'>Processing..., Wait</font>")
         QApplication.processEvents()
-        intensity_dir = self.plugin.rootfolder + '/' + self.plugin.filename_base + '/Protein_responce/'
+        intensity_dir = self.plugin.rootfolder + '/' + self.plugin.filename_base + '/Intensity_response/'
 
         if not os.path.exists(intensity_dir + '/' + 'Allcells'):
             os.makedirs(intensity_dir + '/' + 'Allcells')
@@ -139,15 +190,39 @@ class ComputeSignalAction:
             im = imread(os.path.join(self.plugin.full_stack_rotated_images, image))
             signalch = im[:, :, self.plugin.signal_intensity_channel]   #redch = im[:, :, 0] for red channles (eps8) and redch = im[:, :, 1] for pheloiden
             image_3d[:, :, idx] = signalch
+            if idx == 0:
+                print('The intensity processed image is:')
+                print(self.plugin.signal_intensity_channel)
 
         darker_magenta = (0.8, 0, 0.8)
-        [min_intensity, max_intensity, max_mean_intensity] = plot_responces(self.plugin.labeled_volume, image_3d, 'Allcells', 'magenta', 0, 0, 0) #darker_magenta
+        print(self.plugin.subtract_background)
+        label3D = self.plugin.labeled_volume
+        IHC = self.plugin.IHC
+        OHC = self.plugin.OHC
+        OHC1 = self.plugin.OHC1
+        OHC2 = self.plugin.OHC2
+        OHC3 = self.plugin.OHC3
+        if self.plugin.dilate_labels:
+            label3D = dilate_label_within_bounding_box(label3D, structuring_element=None)
+            layer_name = 'Dilated Labeled Volume'
+            if layer_name in self.plugin.viewer.layers:
+                self.plugin.viewer.layers[layer_name].data = label3D
+            else:
+                self.plugin.viewer.add_labels(label3D, name=layer_name)
+
+            IHC = dilate_label_within_bounding_box(IHC, structuring_element=None)
+            OHC = dilate_label_within_bounding_box(OHC, structuring_element=None)
+            OHC1 = dilate_label_within_bounding_box(OHC1, structuring_element=None)
+            OHC2 = dilate_label_within_bounding_box(OHC2, structuring_element=None)
+            OHC3 = dilate_label_within_bounding_box(OHC3, structuring_element=None)
+        [min_intensity, max_intensity, max_mean_intensity, background3D_intensity] = plot_responces(label3D, image_3d, 'Allcells', 'magenta', 0, 0, 0, self.plugin.subtract_background) #darker_magenta
+        save_per_layer_intensity(label3D, image_3d, 'Allcells', background3D_intensity =background3D_intensity, subtract_background=self.plugin.subtract_background)
         if self.plugin.clustering == 1:
-            [_, _, _] = plot_responces(self.plugin.IHC, image_3d, 'IHCs', 'yellow', min_intensity, max_intensity, max_mean_intensity)
-            [_, _, _] = plot_responces(self.plugin.OHC, image_3d, 'OHCs', 'red', min_intensity, max_intensity, max_mean_intensity)
-            [_, _, _] = plot_responces(self.plugin.OHC1, image_3d, 'OHC1', 'skyblue', min_intensity, max_intensity, max_mean_intensity)
-            [_, _, _] = plot_responces(self.plugin.OHC2, image_3d, 'OHC2', 'lightgreen', min_intensity, max_intensity, max_mean_intensity)
-            [_, _, _] = plot_responces(self.plugin.OHC3, image_3d, 'OHC3', 'thistle', min_intensity, max_intensity, max_mean_intensity)
+            [_, _, _, _] = plot_responces(IHC, image_3d, 'IHCs', 'yellow', min_intensity, max_intensity, max_mean_intensity, self.plugin.subtract_background)
+            [_, _, _, _] = plot_responces(OHC, image_3d, 'OHCs', 'red', min_intensity, max_intensity, max_mean_intensity, self.plugin.subtract_background)
+            [_, _, _, _] = plot_responces(OHC1, image_3d, 'OHC1', 'skyblue', min_intensity, max_intensity, max_mean_intensity, self.plugin.subtract_background)
+            [_, _, _, _] = plot_responces(OHC2, image_3d, 'OHC2', 'lightgreen', min_intensity, max_intensity, max_mean_intensity, self.plugin.subtract_background)
+            [_, _, _, _] = plot_responces(OHC3, image_3d, 'OHC3', 'thistle', min_intensity, max_intensity, max_mean_intensity, self.plugin.subtract_background)
         self.plugin.loading_label.setText("")
         QApplication.processEvents()
         plt.close('all')

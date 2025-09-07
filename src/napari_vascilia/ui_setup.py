@@ -2,25 +2,6 @@ import os
 from qtpy.QtWidgets import QLabel, QVBoxLayout, QWidget, QPushButton
 from qtpy.QtGui import QPixmap
 from qtpy.QtCore import Qt, QSize
-import importlib.resources
-# from core.open_cochlea_action import OpenCochleaAction
-# from core.upload_cochlea_action import UploadCochleaAction
-# from core.trim_cochlea_action import TrimCochleaAction
-# from core.rotate_cochlea_action import RotateCochleaAction
-# from core.segment_cochlea_action import SegmentCochleaAction
-# from core.visualize_track_action import VisualizeTrackAction
-# from core.delete_action import DeleteAction
-# from core.calculate_measurements import CalculateMeasurementsAction
-# from core.calculate_distance import CalculateDistanceAction
-# from core.save_distance import SaveDistanceAction
-# from core.identify_celltype_action import CellClusteringAction
-# from core.compute_signal_action import ComputeSignalAction
-# from core.predict_tonotopic_region import PredictRegionAction
-# from core.compute_orientation_action import ComputeOrientationAction
-# from core.commute_training_action import commutetraining
-# from core.reset_exit_action import reset_exit
-# from core.batch_action import BatchCochleaAction
-# from core.Process_multiple_stacks import BatchCochleaAction_multi_stacks
 from .core.open_cochlea_action import OpenCochleaAction
 from .core.upload_cochlea_action import UploadCochleaAction
 from .core.trim_cochlea_action import TrimCochleaAction
@@ -39,6 +20,7 @@ from .core.commute_training_action import commutetraining
 from .core.reset_exit_action import reset_exit
 from .core.batch_action import BatchCochleaAction
 from .core.Process_multiple_stacks import BatchCochleaAction_multi_stacks
+from .core.combine_labels import CombineAction
 
 def create_ui(plugin):
     print("create_ui called")  # Debugging print statement
@@ -79,6 +61,10 @@ def create_ui(plugin):
     delete_action = DeleteAction(plugin)
     delete_widget = delete_action.create_filter_component_widget()
     layout.addWidget(delete_widget.native)
+
+    combine_action = CombineAction(plugin)
+    combine_action_widget = combine_action.create_combineaction_widget()
+    layout.addWidget(combine_action_widget)
 
     plugin.distance_action = CalculateDistanceAction(plugin)
     buttons_info = [

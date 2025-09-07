@@ -1,12 +1,11 @@
-name: Napari-VASCilia
+name: napari-vascilia
 display_name: VASCilia
-visibility: public
-categories: ["Segmentation", "Annotation", "Measurement", "Image Processing", "Visualization"]
+schema_version: 0.1.0
 contributions:
   commands:
-    - id: Napari-VASCilia.initialize_ui
-      python_name: napari_vascilia.Napari_VASCilia_v1_3_0:initialize_vascilia_ui
+    - id: napari-vascilia.initialize_ui
+      python_name: napari_vascilia.Napari_VASCilia_v1_4_0:initialize_vascilia_ui
       title: Initialize UI
   widgets:
-    - command: Napari-VASCilia.initialize_ui
+    - command: napari-vascilia.initialize_ui
       display_name: VASCilia UI

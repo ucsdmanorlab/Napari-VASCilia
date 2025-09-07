@@ -76,6 +76,8 @@ class SaveDistanceAction:
 
         self.plugin.loading_label.setText("<font color='red'>Save Processing..., Wait</font>")
         QApplication.processEvents()
+        self.plugin.depths = []  # List to store depth of each component
+
         for idx, points in enumerate(self.plugin.start_points):
             self.plugin.start_points_layer.data[idx][2] = points[2]
         for idx, points in enumerate(self.plugin.end_points):
@@ -93,17 +95,29 @@ class SaveDistanceAction:
             distance = np.linalg.norm(point1_phy - point2_phy) / self.plugin.scale_factor
             self.plugin.physical_distances.append((id, distance))
             print(f'Distance of ID {id} = {distance}')
+            depth = abs(ep[2] - sp[2]) + 1
+            # Get all z slices where this component exists
+            # coords = np.where(self.plugin.labeled_volume == id)
+            # z_slices = np.unique(coords[2])
+            # original_depth = z_slices[-1] - z_slices[0] + 1
+            self.plugin.depths.append(depth)
 
         Distance_path = os.path.join(self.plugin.rootfolder, self.plugin.filename_base, 'Distances')
         if not os.path.exists(Distance_path):
             os.makedirs(Distance_path, exist_ok=True)
         if self.plugin.clustering != 1:
+            # When clustering is not done, Depth is the second column
             df = pd.DataFrame(self.plugin.physical_distances, columns=['ID', 'Distance'])
+            #df['Depth'] = self.plugin.depths  # Add Depth as the second column
         else:
+            # When clustering is done, Depth will be the third column
             df = pd.read_csv(os.path.join(Distance_path, 'Physical_distances.csv'))
-            class_col = df.iloc[:, 2]
+            class_col = df.iloc[:, 2]  # Assuming the 'Class' column is the third column
             df = pd.DataFrame(self.plugin.physical_distances, columns=['ID', 'Distance'])
-            df['CLass'] = class_col
+            df['CLass'] = class_col  # Add Class as the second column
+            df['Depth'] = self.plugin.depths  # Add Depth as the third column
+
+
         df.to_csv(os.path.join(Distance_path, 'Physical_distances.csv'), index=False, sep=',')
         self.plugin.start_points_most_updated = self.plugin.start_points_layer.data
         self.plugin.end_points_most_updated = self.plugin.end_points_layer.data

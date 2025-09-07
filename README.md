@@ -62,7 +62,7 @@ Also create another folder called processed_data in which the plugin will use to
   - 📁 **processed_data** `[processed data will be stored here]`
 
 ## Instructions for Cloning the Repository [You can do either Option A or Option B]:
-## Option A: Cloning the Repository:  
+## Option A: From source (recommended for dev):  
 ```sh
 git clone https://github.com/ucsdmanorlab/Napari-VASCilia.git
 cd Napari-VASCilia
@@ -72,13 +72,12 @@ pip install -r requirements.txt
 pip install -e .
 napari  
 ```
-## Option B: Installing via PyPI:
+## Option B: From PyPI (end users):
 ```sh
 conda create -y -n napari-VASCilia -c conda-forge python=3.10    
 conda activate napari-VASCilia 
-# Download the requirements.txt file from this repository and ensure you have it in your working directory. 
-pip install -r requirements.txt
-pip install Napari-VASCilia
+pip install --extra-index-url https://download.pytorch.org/whl/cu113 torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu113
+pip install napari-vascilia
 napari  
 ```
 Post-installation:  
@@ -106,12 +105,16 @@ Please update the /.../ portion according to your paths:
     "red_channel": 1,
     "blue_channel": -1,
     "signal_intensity_channel": 0,
-    "flag_to_resize": false,
-    "flag_to_pad": false,
-    "resize_dimension": 1200,
-    "pad_dimension": 1500,
-    "button_width": 100,
-    "button_height": 35
+    "subtract_background": True,
+    "dilate_labels": False,
+    "flag_to_upscale": False,
+    "flag_to_downscale": False,
+    "flag_to_pad": False,
+    "resize_dimension": 1500,
+    "pad_dimension": 2000,
+    "force_manual_resolution": 0,
+    "button_width": 60,
+    "button_height": 18
 }
 ```
 
@@ -186,22 +189,10 @@ VASCilia also equipped with two more buttons for resetting (to facilitate transi
 We are still working on the documentation, so this gihub will be continiuosly updated.
 
 ## Multi-Batch Processing Feature: Required File
-The **Multi-Batch Processing** feature in this package requires an additional file: `track_me_SORT_v3_exe.exe`. This file is **not included** in the repository or the pip installation due to size constraints.
+The **Multi-Batch Processing** feature in this package requires an additional file 'file_names_for_batch_processing.csv' to be in the same path of your rootfolder in your config file. 
 ### Download the File
-You can download the file from the following link:  
-[Download track_me_SORT_v3_exe.exe]*[[https://www.dropbox.com/your-file-link](https://www.dropbox.com/scl/fo/sud3ziayvo7efcsbzgrd7/ACeJ6uMjNLcyk7ev0upJREE?rlkey=e6nzvpz8aoebzq4w3o5f339le&st=1qtmf3mf&dl=0)]
-### If You Clone the Repository
-1. Download the file from the link above.
-2. Place the file in the following directory within the cloned repository: src/napari_vascilia/core/
-### If You Installed the Package via pip
-1. Download the file from the link above.
-2. Locate the installation directory for the package. You can find the installation path by running the following Python code: 
-```python
-import napari_vascilia
-print(napari_vascilia.__file__)
-```
-3. Place the downloaded file in the following directory: <package_installation_path>/src/napari_vascilia/core/  
-Note: All other features of the package will function as expected without this file. This file is exclusively for batch processing of multiple files.
+You can download the csv file from the following link and don't forget to change the paths https://www.dropbox.com/scl/fo/pg3i39xaf3vtjydh663n9/h?rlkey=agtnxau73vrv3ism0h55eauek&dl=0  
+:
 
 ## Testing Other Lab Data  
 Liberman Data *[Click me to see a video demo of the entire workflow](https://youtu.be/PIG3q7G6Xr0)*  

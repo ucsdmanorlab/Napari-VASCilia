@@ -1,6 +1,6 @@
 import cv2
 from czitools import read_tools, napari_tools
-import czifile
+#import czifile
 from tifffile import imread, imwrite, TiffWriter, TiffFile
 import os
 import numpy as np
@@ -9,7 +9,7 @@ from pathlib import Path
 import json
 #-------------- Qui
 from qtpy.QtWidgets import QMessageBox
-from qtpy.QtWidgets import QApplication, QPushButton, QDialog,  QFormLayout
+from qtpy.QtWidgets import QApplication, QDialog,  QFormLayout
 from qtpy.QtWidgets import  QFileDialog, QLabel, QLineEdit
 from qtpy.QtWidgets import QPushButton
 from .VASCilia_utils import display_images, save_attributes, load_attributes  # Import the utility functions
@@ -102,8 +102,22 @@ class OpenCochleaAction:
         self.plugin.model_output_path = paths_to_check['model_output_path'] or ''
         self.plugin.model_region_prediction = paths_to_check['model_region_prediction'] or ''
         self.plugin.model_celltype_identification = paths_to_check['model_celltype_identification'] or ''
-        self.plugin.flag_to_resize = self.config.get('flag_to_resize', False)
-        self.plugin.flag_to_pad = self.config.get('flag_to_pad', False)
+        self.flag_to_upscale = self.config.get('flag_to_upscale', False)
+        self.flag_to_downscale = self.config.get('flag_to_downscale', False)
+        self.flag_to_pad = self.config.get('flag_to_pad', False)
+
+        if self.flag_to_upscale and self.flag_to_downscale:
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle('Configuration Error')
+            msg_box.setText(
+                "Both 'flag_to_upscale' and 'flag_to_downscale' are set to True in config.json.\n\n"
+                "Please choose only one resizing mode to avoid ambiguity."
+            )
+            msg_box.exec_()
+            return False
+
+        # wherever you load other flags from config
+        self.plugin.force_manual_resolution = int(self.config.get('force_manual_resolution', 0))
         self.plugin.resize_dimension = self.config.get('resize_dimension', 1200)
         self.plugin.pad_dimension = self.config.get('pad_dimension', 1500)
         self.plugin.BUTTON_WIDTH = self.config.get('button_width', 60)
@@ -149,43 +163,47 @@ class OpenCochleaAction:
 
 
     def resize_or_pad_image(self, image_clahe, height, width):
-        print(f'Original height is {height}')
-        print(f'Original width is {width}')
 
-        # Initialize new height and width
         new_height = height
         new_width = width
 
-        # Check if resizing is enabled
-        if self.plugin.flag_to_resize and (height < self.plugin.resize_dimension or width < self.plugin.resize_dimension):
+        # Handle upscaling
+        if self.plugin.flag_to_upscale and (
+                height < self.plugin.resize_dimension or width < self.plugin.resize_dimension):
             if height < width:
                 self.plugin.scale_factor = self.plugin.resize_dimension / height
             else:
                 self.plugin.scale_factor = self.plugin.resize_dimension / width
             new_height = int(height * self.plugin.scale_factor)
             new_width = int(width * self.plugin.scale_factor)
-            # Resize the image while maintaining the aspect ratio
             image_clahe = cv2.resize(image_clahe, (new_width, new_height), interpolation=cv2.INTER_LINEAR)
 
-        # Check if padding is enabled
+        # Handle downscaling
+        elif self.plugin.flag_to_downscale and (
+                height > self.plugin.resize_dimension or width > self.plugin.resize_dimension):
+            if height > width:
+                self.plugin.scale_factor = self.plugin.resize_dimension / height
+            else:
+                self.plugin.scale_factor = self.plugin.resize_dimension / width
+            new_height = int(height * self.plugin.scale_factor)
+            new_width = int(width * self.plugin.scale_factor)
+            image_clahe = cv2.resize(image_clahe, (new_width, new_height), interpolation=cv2.INTER_AREA)
+
+        # Padding (if enabled)
         if self.plugin.flag_to_pad:
-            # Calculate the padding needed
             pad_height = max(0, self.plugin.pad_dimension - new_height)
             pad_width = max(0, self.plugin.pad_dimension - new_width)
-            # Calculate padding for each side (top, bottom, left, right)
             top = pad_height // 2
             bottom = pad_height - top
             left = pad_width // 2
             right = pad_width - left
-            # Pad the image with zeros
-            if len(image_clahe.shape) == 3:  # Color image
+            if len(image_clahe.shape) == 3:
                 image_clahe = np.pad(image_clahe, ((top, bottom), (left, right), (0, 0)), mode='constant',
                                      constant_values=0)
-            else:  # Grayscale image
+            else:
                 image_clahe = np.pad(image_clahe, ((top, bottom), (left, right)), mode='constant', constant_values=0)
 
         return image_clahe
-
 
     def read_lif_and_preprocess(self):
         """
@@ -248,7 +266,7 @@ class OpenCochleaAction:
             msg_box = QMessageBox()
             msg_box.setWindowTitle('File Selection')
             msg_box.setText(
-                'This lif stack is already processed, please press the [Upload Processed CZI Stack] buttom to upload your analysis')
+                'This lif stack is already processed, please press the [Upload Processed Stack] buttom to upload your analysis')
             msg_box.exec_()
             # Exit the function
             self.plugin.loading_label.setText("")
@@ -281,6 +299,7 @@ class OpenCochleaAction:
             Red_stack.append(Red_ch)
             Blue_ch = np.zeros((np.shape(Red_ch)[0], np.shape(Red_ch)[1]), dtype=np.uint8)
             RGB_image = np.stack([Red_ch, Green_ch, Blue_ch], axis=2)
+            height, width = RGB_image.shape[:2]
             # image_8bit = RGB_image.compute()
             image_8bit = RGB_image
             #
@@ -300,28 +319,39 @@ class OpenCochleaAction:
             image_clahe = cv2.merge([Red_ch_clahe, Green_ch_clahe, Blue_ch_clahe])
             padded_i = str(i).zfill(4)
             file_name_towrite = self.plugin.full_stack_raw_images + '/' + self.plugin.filename_base + f'_{padded_i}.tif'
-            # Assuming image_clahe is your image and it has three dimensions (height, width, channels)
-            height, width = image_clahe.shape[:2]
+
             # Check if any dimension is less than 1500
-            if self.plugin.flag_to_resize or self.plugin.flag_to_pad:
+            if self.plugin.flag_to_upscale or self.plugin.flag_to_downscale or self.plugin.flag_to_pad:
                 image_clahe = self.resize_or_pad_image(image_clahe, height, width)
+                if i == 0:
+                    new_height, new_width = image_clahe.shape[:2]
+                    if (height != new_height) or (width != new_width):
+                        print(f"[Resizing] Image {i}: Original = {height}x{width}, "
+                              f"New = {new_height}x{new_width}, Scale Factor = {self.plugin.scale_factor:.4f}")
+
             imwrite(file_name_towrite, image_clahe)
         self.plugin.full_stack_length = i + 1
         self.plugin.display = None
-        #------- FInd the resolution
-        try:
-            scaling_x_meters = second_image.info['scale'][0]
-            scaling_y_meters = second_image.info['scale'][1]
-            scaling_z_meters = second_image.info['scale'][2]
-            scaling_x_micrometers = float(scaling_x_meters) / 1000
-            scaling_y_micrometers = float(scaling_y_meters) / 1000
-            scaling_z_micrometers = np.abs(float(scaling_z_meters)) / 1000
-            self.plugin.physical_resolution = (scaling_x_micrometers, scaling_y_micrometers, scaling_z_micrometers)
-        except Exception as e:
-            # If an error occurred, prompt the user to input the resolution manually
-            print(f"Error retrieving resolution: {e}")
+        # ------- Find the resolution
+        if getattr(self.plugin, "force_manual_resolution", 0) == 1:
             prompt_for_resolution()
+        else:
+            try:
+                scaling_x_meters = second_image.info['scale'][0]
+                scaling_y_meters = second_image.info['scale'][1]
+                scaling_z_meters = second_image.info['scale'][2]
+                scaling_x_micrometers = float(scaling_x_meters) / 1000.0
+                scaling_y_micrometers = float(scaling_y_meters) / 1000.0
+                scaling_z_micrometers = abs(float(scaling_z_meters)) / 1000.0
+                self.plugin.physical_resolution = (
+                    scaling_x_micrometers, scaling_y_micrometers, scaling_z_micrometers
+                )
+            except Exception as e:
+                print(f"Error retrieving resolution: {e}")
+                prompt_for_resolution()
+
         # self.DesAnalysisPath = new_folder_path + '/'
+        print(f"Physical resolution extracted: {self.plugin.physical_resolution}")
         self.plugin.analysis_stage = 1
         self.plugin.pkl_Path = new_folder_path + '/' + 'Analysis_state.pkl'
         save_attributes(self.plugin, self.plugin.pkl_Path)
@@ -400,16 +430,16 @@ class OpenCochleaAction:
             QApplication.processEvents()
             return
 
-        # self.plugin.full_stack_raw_images = os.path.join(new_folder_path, 'full_stack_raw_images')
-        # self.plugin.full_stack_rotated_images = os.path.join(new_folder_path, 'full_stack_rotated_images', 'raw_images')
-        self.plugin.full_stack_raw_images = new_folder_path + '/' + 'full_stack_raw_images'
-        self.plugin.full_stack_rotated_images = new_folder_path + '/' +  'full_stack_rotated_images' + '/' +  'raw_images'
+        self.plugin.full_stack_raw_images = os.path.join(new_folder_path, 'full_stack_raw_images')
+        self.plugin.full_stack_rotated_images = os.path.join(new_folder_path, 'full_stack_rotated_images', 'raw_images')
+        # self.plugin.full_stack_raw_images = new_folder_path + '/' + 'full_stack_raw_images'
+        # self.plugin.full_stack_rotated_images = new_folder_path + '/' +  'full_stack_rotated_images' + '/' +  'raw_images'
 
         if not os.path.exists(self.plugin.full_stack_raw_images):
             os.makedirs(self.plugin.full_stack_raw_images, exist_ok=True)
 
-        with czifile.CziFile(self.file_path) as czi:
-            array6d = czi.asarray()
+        # with czifile.CziFile(self.file_path) as czi:
+        #     array6d = czi.asarray()
         array6d, mdata, dim_string6d = read_tools.read_6darray(self.file_path,
                                                                output_order="STCZYX",
                                                                use_dask=True,
@@ -435,15 +465,12 @@ class OpenCochleaAction:
             else:
                 Blue_ch = array6d[0, 0, self.plugin.blue_channel, i, :, :]
             RGB_image = np.stack([Red_ch, Green_ch, Blue_ch], axis=2)
-            #image_8bit = RGB_image.compute()
+            height, width = RGB_image.shape[:2]
             image_8bit = RGB_image
-            #
             if np.max(image_8bit) == 0:
                 print("Max value is zero, exiting loop.")
                 break
-            # print(i)
             image_8bit = (image_8bit - np.min(image_8bit)) / ((np.max(image_8bit) - np.min(image_8bit))) * 255
-
             image_8bit = np.array(image_8bit, dtype=np.uint8)
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
             # # Apply CLAHE to each channel separately
@@ -454,34 +481,41 @@ class OpenCochleaAction:
             image_clahe = cv2.merge([Red_ch_clahe, Green_ch_clahe, Blue_ch_clahe])
             padded_i = str(i).zfill(4)
             file_name_towrite = self.plugin.full_stack_raw_images + '/' + self.plugin.filename_base + f'_{padded_i}.tif'
-            # Assuming image_clahe is your image and it has three dimensions (height, width, channels)
-            height, width = image_clahe.shape[:2]
             # Check if any dimension is less than 1500
-            if self.plugin.flag_to_resize or self.plugin.flag_to_pad:
+            if self.plugin.flag_to_upscale or self.plugin.flag_to_downscale or self.plugin.flag_to_pad:
                 image_clahe = self.resize_or_pad_image(image_clahe, height, width)
-            #image_clahe = cv2.resize(image_clahe, (256,256))  #please reomve this Yasmin
+                if i == 0:
+                    new_height, new_width = image_clahe.shape[:2]
+                    if (height != new_height) or (width != new_width):
+                        print(f"[Resizing] Image {i}: Original = {height}x{width}, "
+                              f"New = {new_height}x{new_width}, Scale Factor = {self.plugin.scale_factor:.4f}")
             imwrite(file_name_towrite, image_clahe)
         self.plugin.full_stack_length = i + 1
         self.plugin.display = None
         #---------------------------------- Find Resolution ----------------------
-        try:
-            # Store the physical resolution
-            scaling_x_meters = mdata.channelinfo.czisource[
-                'ImageDocument'].Metadata.Experiment.ExperimentBlocks.AcquisitionBlock.AcquisitionModeSetup.ScalingX
-            scaling_y_meters = mdata.channelinfo.czisource[
-                'ImageDocument'].Metadata.Experiment.ExperimentBlocks.AcquisitionBlock.AcquisitionModeSetup.ScalingY
-            scaling_z_meters = mdata.channelinfo.czisource[
-                'ImageDocument'].Metadata.Experiment.ExperimentBlocks.AcquisitionBlock.AcquisitionModeSetup.ScalingZ
-            scaling_x_micrometers = float(scaling_x_meters) * 1e6
-            scaling_y_micrometers = float(scaling_y_meters) * 1e6
-            scaling_z_micrometers = float(scaling_z_meters) * 1e6
-            self.plugin.physical_resolution = (scaling_x_micrometers, scaling_y_micrometers, scaling_z_micrometers)
-        except Exception as e:
-            # If an error occurred, prompt the user to input the resolution manually
-            print(f"Error retrieving resolution: {e}")
+        if getattr(self.plugin, "force_manual_resolution", 0) == 1:
             prompt_for_resolution()
+        else:
+            try:
+                scaling_x_meters = mdata.channelinfo.czisource[
+                    'ImageDocument'].Metadata.Experiment.ExperimentBlocks.AcquisitionBlock.AcquisitionModeSetup.ScalingX
+                scaling_y_meters = mdata.channelinfo.czisource[
+                    'ImageDocument'].Metadata.Experiment.ExperimentBlocks.AcquisitionBlock.AcquisitionModeSetup.ScalingY
+                scaling_z_meters = mdata.channelinfo.czisource[
+                    'ImageDocument'].Metadata.Experiment.ExperimentBlocks.AcquisitionBlock.AcquisitionModeSetup.ScalingZ
+                scaling_x_micrometers = float(scaling_x_meters) * 1e6
+                scaling_y_micrometers = float(scaling_y_meters) * 1e6
+                scaling_z_micrometers = float(scaling_z_meters) * 1e6
+                self.plugin.physical_resolution = (
+                    scaling_x_micrometers, scaling_y_micrometers, scaling_z_micrometers
+                )
+            except Exception as e:
+                print(f"Error retrieving resolution: {e}")
+                prompt_for_resolution()
+
         #--------------------------------------------------------------------------------------
         #self.DesAnalysisPath = new_folder_path + '/'
+        print(f"Physical resolution extracted: {self.plugin.physical_resolution}")
         self.plugin.analysis_stage = 1
         self.plugin.pkl_Path = new_folder_path + '/'  + 'Analysis_state.pkl'
         save_attributes(self.plugin, self.plugin.pkl_Path)
@@ -588,7 +622,7 @@ class OpenCochleaAction:
             Green_stack.append(np.array(Green_ch))
             Red_stack.append(np.array(Red_ch))
             RGB_image = np.stack([Red_ch, Green_ch, Blue_ch], axis=2)
-
+            height, width = RGB_image.shape[:2]
             image_8bit = (RGB_image - np.min(RGB_image)) / ((np.max(RGB_image) - np.min(RGB_image))) * 255
             image_8bit = np.array(image_8bit, dtype=np.uint8)
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
@@ -598,17 +632,63 @@ class OpenCochleaAction:
             image_clahe = cv2.merge([Red_ch_clahe, Green_ch_clahe, Blue_ch_clahe])
             padded_i = str(i).zfill(4)
             file_name_towrite = self.plugin.full_stack_raw_images + '/' + self.plugin.filename_base + f'_{padded_i}.tif'
-            # Assuming image_clahe is your image and it has three dimensions (height, width, channels)
-            height, width = image_clahe.shape[:2]
             # Check if any dimension is less than 1500
-            if self.plugin.flag_to_resize or self.plugin.flag_to_pad:
+            if self.plugin.flag_to_upscale or self.plugin.flag_to_downscale or self.plugin.flag_to_pad:
                 image_clahe = self.resize_or_pad_image(image_clahe, height, width)
+                if i == 0:
+                    new_height, new_width = image_clahe.shape[:2]
+                    if (height != new_height) or (width != new_width):
+                        print(f"[Resizing] Image {i}: Original = {height}x{width}, "
+                              f"New = {new_height}x{new_width}, Scale Factor = {self.plugin.scale_factor:.4f}")
             imwrite(file_name_towrite, image_clahe)
 
         self.plugin.full_stack_length = i + 1
         self.plugin.display = None
-        #---------------------------------- Find Resolution ----------------------
-        prompt_for_resolution()
+        # ---------------------------------- Find Resolution ----------------------
+        if getattr(self.plugin, "force_manual_resolution", 0) == 1:
+            prompt_for_resolution()
+        else:
+            try:
+                with TiffFile(self.file_path) as tif:
+                    page = tif.pages[0]
+                    tags = page.tags
+
+                    x_res_tag = tags.get('XResolution')
+                    y_res_tag = tags.get('YResolution')
+                    res_unit_tag = tags.get('ResolutionUnit')
+
+                    if x_res_tag and y_res_tag:
+                        x_res_value = x_res_tag.value[0] / x_res_tag.value[1]
+                        y_res_value = y_res_tag.value[0] / y_res_tag.value[1]
+                        res_unit = res_unit_tag.value if res_unit_tag else 1
+                        if res_unit == 2:
+                            factor = 25_400  # µm per inch
+                        elif res_unit == 3:
+                            factor = 10_000  # µm per cm
+                        else:
+                            factor = 1  # assume already µm/pixel
+                        x_res_micron = factor / x_res_value
+                        y_res_micron = factor / y_res_value
+                    else:
+                        raise ValueError("XResolution or YResolution tags not found")
+
+                    description = page.description
+                    z_res_micron = None
+                    if description:
+                        for entry in description.split('\n'):
+                            if entry.startswith('spacing='):
+                                z_res_micron = float(entry.split('=')[1])
+                                break
+
+                    if z_res_micron is None:
+                        raise ValueError("Z resolution (spacing) not found in ImageJ metadata.")
+
+                    self.plugin.physical_resolution = (x_res_micron, y_res_micron, z_res_micron)
+                    print(f"Physical resolution extracted: {self.plugin.physical_resolution}")
+            except Exception as e:
+                print(f"Error retrieving resolution: {e}")
+                prompt_for_resolution()
+
         #--------------------------------------------------------------------------------------
         #self.DesAnalysisPath = new_folder_path + '/'
         self.plugin.analysis_stage = 1

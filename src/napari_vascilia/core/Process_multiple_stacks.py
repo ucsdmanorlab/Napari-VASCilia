@@ -45,7 +45,7 @@ class BatchCochleaAction_multi_stacks:
 
         if response == QMessageBox.Ok:
 
-            reset_exit(self.plugin).reset_button()
+            #reset_exit(self.plugin).reset_button()
             # Read the Excel file
             file_path_for_batch_processing = os.path.join(self.plugin.rootfolder, 'file_names_for_batch_processing.csv')
             df = pd.read_csv(file_path_for_batch_processing) #, header=None
@@ -64,10 +64,10 @@ class BatchCochleaAction_multi_stacks:
                             filename_base = filename_base.replace('(', '')
                             filename_base = filename_base.replace(')', '')
                             new_folder_path = os.path.join(self.plugin.rootfolder, filename_base)
+
                             if not os.path.exists(new_folder_path):
                                 OpenCochleaAction(self.plugin, batch = 1, batch_file_path = file_path).execute()
                                 BatchCochleaAction(self.plugin).execute()
-                                print(f'The processing of {file_path} is done')
                             time.sleep(2)
                             reset_exit(self.plugin).reset_button()
                             self.plugin.viewer.layers.clear()
@@ -80,4 +80,4 @@ class BatchCochleaAction_multi_stacks:
             end_time = time.time()
             time_elapsed = end_time - start_time
             print(f'Elapsed time doing the analysis equal {time_elapsed}')
-            reset_exit(self.plugin).exit_button()
+            #reset_exit(self.plugin).exit_button()

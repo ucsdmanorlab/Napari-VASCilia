@@ -6,6 +6,7 @@ from skimage.io import imread
 from scipy.ndimage import find_objects
 import os
 import numpy as np
+from skimage.measure import label as sklabel, regionprops
 #-------------- Qui
 from qtpy.QtWidgets import QApplication
 from .VASCilia_utils import save_attributes  # Import the utility functions
@@ -42,6 +43,40 @@ class VisualizeTrackAction:
                 return overlap.argmax()
             else:
                 return 0
+
+        from skimage.measure import label as sklabel, regionprops
+
+        def keep_largest_component_per_label(volume):
+            """
+            For each unique label in a 3D volume, retain only the largest connected component.
+            All smaller fragments are removed (set to 0).
+
+            Args:
+                volume (np.ndarray): A 3D labeled volume.
+
+            Returns:
+                np.ndarray: Cleaned volume with only the largest connected component per label.
+            """
+            unique_labels = np.unique(volume)
+            unique_labels = unique_labels[unique_labels != 0]
+
+            cleaned_volume = np.zeros_like(volume)
+
+            for label_id in unique_labels:
+                binary = volume == label_id
+                connected = sklabel(binary, connectivity=1)
+
+                if connected.max() == 1:
+                    # Only one component — keep as-is
+                    cleaned_volume[connected == 1] = label_id
+                else:
+                    # More than one component — keep only the largest
+                    props = regionprops(connected)
+                    largest_region = max(props, key=lambda r: r.area)
+                    cleaned_volume[connected == largest_region.label] = label_id
+
+            return cleaned_volume
+
 
         self.plugin.npy_dir = os.path.dirname(self.plugin.full_stack_rotated_images) + '/prediction/'
         self.plugin.obj_dir = os.path.dirname(self.plugin.full_stack_rotated_images) + '/new_assignment_obj/'
@@ -89,7 +124,9 @@ class VisualizeTrackAction:
             mask = imread(maskfile)
             masks.append(mask)
 
-        self.plugin.labeled_volume = np.stack(masks, axis=-1)
+        #self.plugin.labeled_volume = np.stack(masks, axis=-1)
+        self.plugin.labeled_volume = keep_largest_component_per_label(np.stack(masks, axis=-1))
+
         self.plugin.filtered_ids = []
         regions = find_objects(self.plugin.labeled_volume)
 

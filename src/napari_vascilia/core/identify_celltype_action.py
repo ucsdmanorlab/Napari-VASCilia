@@ -13,6 +13,7 @@ import os
 import numpy as np
 from cv2 import resize
 from skimage.transform import resize as skiresize
+from pathlib import Path
 #-------------- Qui
 from qtpy.QtWidgets import QMessageBox
 from qtpy.QtWidgets import QApplication, QPushButton
@@ -306,6 +307,7 @@ class CellClusteringAction:
             self.plugin.IHC_OHC[self.plugin.clustered_cells == 37] = 10
             self.plugin.IHC_OHC[self.plugin.clustered_cells == 16] = 10
 
+        ##--- update length csv with the CLass column
         Distance_path = self.plugin.rootfolder + '\\' + self.plugin.filename_base + '\\Distances\\' + 'Physical_distances.csv'
         data = pd.read_csv(Distance_path)
         data['CLass'] = 'Unknown'

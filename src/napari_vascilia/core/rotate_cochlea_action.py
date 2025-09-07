@@ -56,6 +56,7 @@ class RotateCochleaAction:
         rotate_ai = Rotate_AI_prediction(self.plugin)
         angle_to_rotate_ai = rotate_ai.execute()
         middle_image = rotate(middle_image, angle_to_rotate_ai, reshape=True)
+        preview_image = middle_image[::4, ::4]  # Downsample for faster rotation preview
         ##-------------------------------------------------------------
         self.popup = QDialog()  # Changed from local variable to class attribute
         layout = QVBoxLayout(self.popup)
@@ -89,7 +90,7 @@ class RotateCochleaAction:
         layout.addWidget(slider)
 
         def update_image(value):
-            rotated = rotate(middle_image, value, reshape=False)
+            rotated = rotate(preview_image, value, reshape=False)
             pixmap = numpy_array_to_qpixmap(rotated)
             pixmap = pixmap.scaled(desired_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
             label.setPixmap(pixmap)

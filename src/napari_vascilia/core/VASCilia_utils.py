@@ -59,6 +59,7 @@ def display_images(viewer, display, full_stack_raw_images, full_stack_raw_images
 
     viewer.dims.order = (2, 0, 1)
     loading_name.setText(filename_base)
+    print('Displaying ends')
 
 
 def save_attributes(plugin, filename):
@@ -111,7 +112,16 @@ def save_attributes(plugin, filename):
         'orientation': plugin.orientation,
         'scale_factor': plugin.scale_factor,
         'start_points_layer_properties': plugin.start_end_points_properties,
-        'rot_angle': plugin.rot_angle
+        'rot_angle': plugin.rot_angle,
+        'signal_intensity_channel':plugin.signal_intensity_channel,
+        'subtract_background': plugin.subtract_background,
+        'dilate_labels': plugin.dilate_labels,
+        'flag_to_upscale': plugin.flag_to_upscale,
+        'flag_to_downscale': plugin.flag_to_downscale,
+        'flag_to_pad': plugin.flag_to_pad,
+        'resize_dimension': plugin.resize_dimension,
+        'pad_dimension': plugin.pad_dimension
+
     }
     with open(filename, 'wb') as file:
         pickle.dump(attributes_to_save, file)
@@ -169,3 +179,11 @@ def load_attributes(plugin, filename):
     plugin.scale_factor = loaded_attributes.get('scale_factor', 1)
     plugin.start_end_points_properties = loaded_attributes.get('start_points_layer_properties', {})
     plugin.rot_angle = loaded_attributes.get('rot_angle', 0)
+    plugin.signal_intensity_channel = loaded_attributes.get('signal_intensity_channel', 0)
+    plugin.subtract_background = loaded_attributes.get('subtract_background', None)
+    plugin.dilate_labels = loaded_attributes.get('dilate_labels', None)
+    plugin.flag_to_upscale = loaded_attributes.get('flag_to_upscale', None)
+    plugin.flag_to_downscale = loaded_attributes.get('flag_to_downscale', None)
+    plugin.flag_to_pad = loaded_attributes.get('flag_to_pad', None)
+    plugin.resize_dimension = loaded_attributes.get('resize_dimension', 1200)
+    plugin.pad_dimension = loaded_attributes.get('pad_dimension', 1500)

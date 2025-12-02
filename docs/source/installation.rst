@@ -7,7 +7,9 @@ System Requirements
 -----
 
 - **OS:** Windows 10/11 (64-bit) with **WSL2** and **Ubuntu 20.04 LTS** installed.
-- **GPU:** NVIDIA CUDA-capable, **GeForce RTX 4070 Ti–class or better** (≥ 12 GB VRAM).
+- **GPU:** NVIDIA CUDA-capable (≥ 8 GB VRAM).
+   The software is very flexible and has been successfully tested on the following GPUs:
+   NVIDIA RTX 2070 (8 GB), RTX 2080 Ti (11 GB), RTX 3080 (10 GB), RTX 4070 Ti (12 GB), RTX 4080 (16 GB), and RTX 4090 (24 GB).
 - **RAM:** ≥ 32 GB recommended.
 - **Drivers:** Recent NVIDIA driver and CUDA runtime.
 

@@ -111,7 +111,16 @@ STEP2: Download the Deep Learning Trained Models
       └── 📁 rotation_correction_model
              Contains deep learning model weights for correcting stack orientation.
 
-Important note: You can place the models folder anywhere on your computer. After installing VASCilia, update all related paths in your config file to point to your chosen location. 
+   **Important Notes:**
+
+   1. Place the **models** folder on your **C:** drive.  
+   
+   2. After installing **VASCilia**, update all related paths in your configuration file to point to the chosen location.
+
+   3. Ensure that your file paths **do not contain spaces or special characters** (underscores are fine).
+
+   4. Keep your path length **reasonably short**, as Python has a character limit for file paths on Windows.
+
 
 .. code-block:: json
 
@@ -145,7 +154,18 @@ STEP3: Download a Test Dataset
 
       📁 processed_data [Processed data will be stored here]
 
-Important Note: After installing vascilia, remember to update the 'rootfolder' parameter in the config file with the 'processed_data' path
+**Important Notes:**
+
+   After installing **VASCilia**, remember to update the **'rootfolder'** parameter in the configuration file with the path to your **'processed_data'** directory.  
+   This directory stores all processed stacks and can be located anywhere on your computer.
+
+   **Example:**
+
+   In my configuration file:
+
+   .. code-block:: json
+
+      "rootfolder": "C:/Users/Yasmin/Data/vascilia_project/processed_data/"
 
 STEP4: Installing VASCilia
 -----
@@ -154,7 +174,32 @@ Instructions for Cloning and Installing the Repository
 
 You can set up **VASCilia** by following **Option A** or **Option B**:
 
-Option A: Cloning the Repository
+Option A: Installing via PyPI
+-----------------------------
+
+1. Create and activate the conda environment:
+
+   .. code-block:: bash
+
+      conda create -y -n napari-VASCilia -c conda-forge python=3.10
+      conda activate napari-VASCilia
+
+2. Download the `requirements.txt` file from this repository and ensure it is in your working directory.
+
+3. Install dependencies and VASCilia:
+
+   .. code-block:: bash
+
+      pip install --extra-index-url https://download.pytorch.org/whl/cu113 torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu113
+      pip install Napari-VASCilia
+
+4. Launch Napari:
+
+   .. code-block:: bash
+
+      napari
+
+Option B: Cloning the Repository
 --------------------------------
 
 1. Clone the repository:
@@ -184,46 +229,38 @@ Option A: Cloning the Repository
 
       napari
 
-Option B: Installing via PyPI
------------------------------
 
-1. Create and activate the conda environment:
-
-   .. code-block:: bash
-
-      conda create -y -n napari-VASCilia -c conda-forge python=3.10
-      conda activate napari-VASCilia
-
-2. Download the `requirements.txt` file from this repository and ensure it is in your working directory.
-
-3. Install dependencies and VASCilia:
-
-   .. code-block:: bash
-
-      pip install --extra-index-url https://download.pytorch.org/whl/cu113 torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu113
-      pip install Napari-VASCilia
-
-4. Launch Napari:
-
-   .. code-block:: bash
-
-      napari
 
 
 STEP5: Edit ``config.json``
 -----
-From the **Plugins** menu, select **VASCilia UI**. Do not start any processing yet. 
-On first launch, the plugin creates a configuration file named ``config.json`` in your user config directory 
-(Windows: ``C:\Users\<username>\.napari-vascilia\config.json``)
+
+From the **Plugins** menu, select **VASCilia UI**. Do **not** start any processing yet.  
+On first launch, the plugin automatically creates a configuration file named ``config.json`` in your user configuration directory.
+
+**Important Note**
+
+   To locate the correct ``.napari-vascilia\config.json`` path on your system, open **Command Prompt** and type:
+
+   .. code-block:: bash
+
+      echo %USERPROFILE%
+
+   Follow the path displayed in the output — your ``.napari-vascilia`` folder and ``config.json`` file will be created inside that location.
+
+   Depending on your system setup, the configuration file may be stored in one of the following locations:
+
+   - ``C:\Users\<username>\.napari-vascilia\config.json``
+   - ``C:\Windows\System32\config\systemprofile\.napari-vascilia\config.json``
 
 Edit ``config.json`` to update the paths as needed. The folder structure will look like this:
 
+.. code-block:: text
 
-.. code-block::
-
-   📁 C:/Users/Username/ [Your home folder]
-   ├── 📁 .napari-vascilia [Folder path]
+   📁 C:/Users/Username/
+   ├── 📁 .napari-vascilia/
    └── 📄 config.json
+
 
 2. **Update the `config.json` File**:
 Edit the `config.json` file to reflect your system’s paths. Replace `/.../` portions with the correct paths for your system. Example:
@@ -315,7 +352,7 @@ Paths (models, executables, and outputs)
 
 .. tip::
    You already set up these model/executable paths; **you usually don’t need to change them again**.
-   You can place the ``models`` folder anywhere—just update these paths if you move it.
+   You should place the ``models`` folder in your 'C' Drive
 
 Channel mapping
 ---------------
@@ -329,8 +366,15 @@ Intensity measurement options
 -----------------------------
 
 - **``signal_intensity_channel``** (*integer*)  
-  Channel used by the **Compute Fluorescence Intensity** button.  
-  You can change this to generate plots/CSVs for different channels, **but you must restart Napari each time** for the change to take effect.
+  Specifies which image channel is used by the **Compute Fluorescence Intensity** function.  
+  You can modify this value to generate plots and CSV files for different fluorescence channels,  
+  **but you must restart Napari after each change** for it to take effect.
+
+  **Important:** To determine the correct channel number, open the ``raw_images`` folder inside your dataset (within ``processed_data``).  
+  Assign **``signal_intensity_channel``** to:  
+     - ``0`` → if you want to quantify the signal that appears **red** in the image  
+     - ``1`` → if you want to quantify the signal that appears **green** in the image  
+     - ``2`` → if you want to quantify the signal that appears **blue** in the image (if present)
 
 - **``subtract_background``** (*boolean; default ``false``*)  
   When ``true``, perform background subtraction before intensity computation.  

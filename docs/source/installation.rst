@@ -82,7 +82,11 @@ Follow these steps to set up Windows Subsystem for Linux (WSL) with the Ubuntu 2
 
    This should display information about your GPU and CUDA installation.
 
-Important note: WSL installation is straightforward with the command above. However, if you encounter issues, they’re likely due to Windows features that need to be enabled. Don’t panic—ask IT for assistance.
+Important notes: 
+
+1. WSL installation is straightforward with the command above. However, if you encounter issues, they’re likely due to Windows features that need to be enabled. Don’t panic—ask IT for assistance.
+2. After completing the installation and rebooting your system, you do **not** need to open the Ubuntu terminal again.  
+   All subsequent steps, including package installation and running VASCilia, will be performed through the **Anaconda Prompt** (not the Ubuntu terminal).
    
 
 STEP2: Download the Deep Learning Trained Models
@@ -173,6 +177,12 @@ Instructions for Cloning and Installing the Repository
 -----
 
 You can set up **VASCilia** by following **Option A** or **Option B**:
+
+**Important Note:**  
+If you do **not** already have **Anaconda** installed on your system, please install it first from the official website:  
+👉 [https://www.anaconda.com/download](https://www.anaconda.com/download)
+
+Make sure to install the **Windows version** of Anaconda, as all installation steps for VASCilia will be performed through the **Anaconda Prompt**.
 
 Option A: Installing via PyPI
 -----------------------------

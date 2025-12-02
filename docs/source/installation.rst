@@ -34,6 +34,31 @@ Steps
 ==========
 STEP1: Set Up WSL
 -----
+Before installing **WSL**, please verify that the required Windows features and virtualization settings are properly enabled.
+
+1. **Open the Windows Features panel**
+
+   Press **Windows + R**, type:
+
+   .. code-block:: bash
+
+      optionalfeatures
+
+   and press **Enter**.
+
+   In the Windows Features window that appears, make sure the following boxes are checked:
+
+   - ✅ **Windows Subsystem for Linux**
+   - ✅ **Virtual Machine Platform**
+
+   Click **OK** and restart your computer if prompted.
+
+2. **Check that hardware virtualization is enabled**
+
+   - Open **Task Manager → Performance → CPU** and confirm that it shows **Virtualization: Enabled**.
+   - If it is disabled, ask your IT department to enable it in the **BIOS/UEFI settings**.
+
+---
 
 Follow these steps to set up Windows Subsystem for Linux (WSL) with the Ubuntu 20.04 distribution.
 

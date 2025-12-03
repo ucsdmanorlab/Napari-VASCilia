@@ -1,5 +1,10 @@
 Installation
 ============
+Video Recording
+-----
+Please click the link below to watch the installation process:
+
+(https://youtu.be/9snkuhpKN3c)
 
 Check the system requirements, then follow the steps to install **VASCilia**.
 

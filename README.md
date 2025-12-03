@@ -35,6 +35,7 @@ VASCilia is here to support researchers in their quest for deeper understanding 
 The steps below are a summary.  
 For detailed instructions, please visit the official installation page in our documentation:  
 [Installation Guide](https://ucsdmanorlab.github.io/Napari-VASCilia/installation.html)
+[Installation Video Recording](https://youtu.be/9snkuhpKN3c)
 
 STEP1[Install WSL]:  
 1. Open the Command Prompt and install the Ubuntu 20.04 Distribution by simply copy paste this command  
